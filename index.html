@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#330C4B" />
+  <title>Womens World — Design Your Dream Outfit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=Noto+Sans+Tamil:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── RESET & BASE ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', 'Noto Sans Tamil', sans-serif;
+      background: #FBF3F8;
+      color: #330C4B;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── CSS VARIABLES ── */
+    :root {
+      --deep-purple:  #330C4B;
+      --purple-iris:  #51017C;
+      --eminence:     #711E7B;
+      --sunset:       #B9379D;
+      --fawn:         #E3A88A;
+      --maize:        #EEDAA5;
+      --bg:           #FBF3F8;
+      --bg2:          #F5EBF3;
+      --white:        #FFFFFF;
+      --radius-lg:    20px;
+      --radius-xl:    28px;
+      --shadow-soft:  0 4px 24px rgba(81,1,124,0.10);
+      --shadow-card:  0 2px 16px rgba(81,1,124,0.08);
+      --transition:   0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    /* ── SPLASH SCREEN ── */
+    #splash {
+      position: fixed; inset: 0; z-index: 9999;
+      background: linear-gradient(160deg, #330C4B 0%, #51017C 45%, #711E7B 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 16px;
+      animation: splashFade 0.6s ease 2.4s forwards;
+    }
+    #splash .splash-logo {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 2px solid rgba(238,218,165,0.4);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      animation: splashLogoIn 0.7s var(--transition) 0.2s both;
+    }
+    #splash .splash-logo img { width: 72px; height: 72px; object-fit: contain; filter: drop-shadow(0 2px 12px rgba(238,218,165,0.5)); }
+    #splash .splash-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 600; letter-spacing: 3px;
+      color: var(--maize);
+      animation: splashTextIn 0.7s var(--transition) 0.5s both;
+    }
+    #splash .splash-sub {
+      font-size: 12px; font-weight: 300; letter-spacing: 2px;
+      color: rgba(238,218,165,0.7);
+      animation: splashTextIn 0.7s var(--transition) 0.7s both;
+    }
+    #splash .splash-dots {
+      display: flex; gap: 6px; margin-top: 8px;
+      animation: splashTextIn 0.7s var(--transition) 0.9s both;
+    }
+    #splash .splash-dots span {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(238,218,165,0.5);
+      animation: dotPulse 1.2s ease-in-out infinite;
+    }
+    #splash .splash-dots span:nth-child(2) { animation-delay: 0.2s; }
+    #splash .splash-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes splashFade { to { opacity:0; pointer-events:none; } }
+    @keyframes splashLogoIn { from { opacity:0; transform:scale(0.5) rotate(-10deg); } to { opacity:1; transform:scale(1) rotate(0); } }
+    @keyframes splashTextIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes dotPulse { 0%,80%,100% { transform:scale(0.6); opacity:0.4; } 40% { transform:scale(1); opacity:1; } }
+
+    /* ── SIDE DRAWER ── */
+    #drawer-overlay {
+      position: fixed; inset: 0; z-index: 800;
+      background: rgba(51,12,75,0.5);
+      backdrop-filter: blur(4px);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    #drawer-overlay.open { opacity: 1; pointer-events: all; }
+    #drawer {
+      position: fixed; top: 0; left: 0; bottom: 0;
+      width: 78vw; max-width: 300px;
+      z-index: 900;
+      background: var(--white);
+      transform: translateX(-100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      display: flex; flex-direction: column;
+      border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+      overflow: hidden;
+    }
+    #drawer.open { transform: translateX(0); }
+    .drawer-header {
+      background: linear-gradient(135deg, #330C4B, #51017C);
+      padding: 48px 24px 28px;
+      display: flex; flex-direction: column; gap: 4px;
+      position: relative; overflow: hidden;
+    }
+    .drawer-header::after {
+      content: '';
+      position: absolute; bottom: -20px; right: -20px;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: rgba(185,55,157,0.2);
+    }
+    .drawer-logo-row { display: flex; align-items: center; gap: 10px; }
+    .drawer-logo-img { width: 40px; height: 40px; border-radius: 50%; object-fit: contain; background: rgba(255,255,255,0.1); }
+    .drawer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--maize); letter-spacing: 1.5px; }
+    .drawer-sub { font-size: 11px; color: rgba(238,218,165,0.6); letter-spacing: 1px; margin-left: 50px; }
+    .drawer-close {
+      position: absolute; top: 16px; right: 16px;
+      width: 32px; height: 32px;
+      border: none; background: rgba(255,255,255,0.15); border-radius: 50%; cursor: pointer;
+      color: var(--maize); font-size: 18px; display: flex; align-items: center; justify-content: center;
+    }
+    .drawer-nav { flex: 1; padding: 16px 0; overflow-y: auto; }
+    .drawer-nav a {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 24px;
+      font-size: 15px; font-weight: 500; color: var(--deep-purple);
+      text-decoration: none; border-bottom: 1px solid rgba(113,30,123,0.06);
+      transition: background 0.2s, color 0.2s;
+    }
+    .drawer-nav a .nav-icon { font-size: 20px; width: 28px; text-align: center; }
+    .drawer-nav a:hover, .drawer-nav a:active { background: var(--bg2); color: var(--purple-iris); }
+    .drawer-nav a .nav-arrow { margin-left: auto; opacity: 0.3; font-size: 12px; }
+    .drawer-footer { padding: 20px 24px; border-top: 1px solid rgba(113,30,123,0.08); }
+    .drawer-wa-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: white; border: none; border-radius: 14px;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      text-decoration: none;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(251,243,248,0.92);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border-bottom: 1px solid rgba(113,30,123,0.08);
+      padding: 0 20px;
+      height: 62px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .header-left, .header-right { width: 80px; display: flex; align-items: center; }
+    .header-right { justify-content: flex-end; }
+    .hamburger {
+      width: 40px; height: 40px;
+      border: none; background: transparent; cursor: pointer;
+      display: flex; flex-direction: column; justify-content: center; gap: 5px;
+      border-radius: 10px; padding: 8px;
+      transition: background 0.2s;
+    }
+    .hamburger:active { background: var(--bg2); }
+    .hamburger span {
+      display: block; height: 2px; border-radius: 2px;
+      background: var(--deep-purple);
+      transition: all 0.3s ease;
+    }
+    .hamburger span:nth-child(1) { width: 20px; }
+    .hamburger span:nth-child(2) { width: 24px; }
+    .hamburger span:nth-child(3) { width: 16px; }
+    .header-center { text-align: center; }
+    .header-brand { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: var(--deep-purple); letter-spacing: 1.5px; line-height: 1.1; }
+    .header-sub { font-size: 9px; font-weight: 400; color: var(--eminence); letter-spacing: 1px; text-transform: uppercase; opacity: 0.7; }
+    .lang-toggle {
+      display: flex; align-items: center;
+      background: var(--bg2); border: 1px solid rgba(113,30,123,0.15);
+      border-radius: 20px; padding: 3px;
+      gap: 2px;
+    }
+    .lang-btn {
+      padding: 4px 8px; border-radius: 16px; border: none; background: transparent;
+      font-size: 11px; font-weight: 600; cursor: pointer;
+      color: var(--eminence); transition: all 0.2s ease;
+      font-family: 'Noto Sans Tamil', 'Inter', sans-serif;
+    }
+    .lang-btn.active {
+      background: linear-gradient(135deg, var(--eminence), var(--sunset));
+      color: white;
+      box-shadow: 0 2px 8px rgba(113,30,123,0.3);
+    }
+
+    /* ── MAIN CONTENT ── */
+    main { overflow-x: hidden; }
+
+    /* ── HERO SECTION ── */
+    .hero {
+      position: relative;
+      background: linear-gradient(160deg, #330C4B 0%, #51017C 50%, #711E7B 100%);
+      min-height: 520px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+
+    /* Decorative floral SVG behind hero */
+    .hero-floral-bg {
+      position: absolute; inset: 0; pointer-events: none;
+    }
+
+    /* Floating petals */
+    .petal {
+      position: absolute;
+      border-radius: 50% 10% 50% 10%;
+      opacity: 0.12;
+      animation: floatPetal linear infinite;
+    }
+
+    /* Hero image & text layout */
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column;
+      padding: 32px 24px 0;
+      flex: 1;
+    }
+    .hero-tagline {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(238,218,165,0.15);
+      border: 1px solid rgba(238,218,165,0.3);
+      border-radius: 20px; padding: 6px 14px;
+      font-size: 11px; font-weight: 500; color: var(--maize);
+      letter-spacing: 1px; text-transform: uppercase;
+      width: fit-content;
+      animation: slideUp 0.7s var(--transition) 2.8s both;
+    }
+    .hero-tagline::before { content: '✦'; font-size: 10px; }
+
+    .hero-content-row {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-top: 20px;
+      gap: 8px;
+    }
+    .hero-text { flex: 1; animation: slideUp 0.7s var(--transition) 3s both; }
+    .hero-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px; font-weight: 600; line-height: 1.08;
+      color: var(--white); letter-spacing: -0.5px;
+    }
+    .hero-heading em { font-style: italic; color: var(--maize); }
+    .hero-heading-ta {
+      font-family: 'Noto Sans Tamil', sans-serif;
+      font-size: 18px; font-weight: 300; line-height: 1.5;
+      color: rgba(238,218,165,0.75);
+      margin-top: 10px;
+    }
+
+    /* SVG Woman Illustration */
+    .hero-illustration {
+      flex-shrink: 0;
+      width: 150px;
+      animation: slideUp 0.7s var(--transition) 2.6s both;
+      filter: drop-shadow(0 8px 32px rgba(185,55,157,0.4));
+    }
+
+    /* CTA Section */
+    .hero-cta-area {
+      position: relative; z-index: 2;
+      padding: 24px 24px 32px;
+      animation: slideUp 0.7s var(--transition) 3.2s both;
+    }
+    .cta-btn {
+      width: 100%; padding: 18px 24px;
+      background: linear-gradient(135deg, var(--fawn) 0%, var(--maize) 100%);
+      color: var(--deep-purple);
+      border: none; border-radius: var(--radius-xl);
+      font-size: 16px; font-weight: 700; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      box-shadow: 0 8px 32px rgba(227,168,138,0.4), 0 2px 8px rgba(0,0,0,0.15);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative; overflow: hidden;
+      letter-spacing: 0.2px;
+    }
+    .cta-btn::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+      pointer-events: none;
+    }
+    .cta-btn:active { transform: scale(0.97); box-shadow: 0 4px 16px rgba(227,168,138,0.3); }
+    .cta-btn .cta-en { font-size: 16px; font-weight: 700; }
+    .cta-btn .cta-ta { font-size: 11px; font-weight: 400; opacity: 0.75; font-family: 'Noto Sans Tamil', sans-serif; }
+    .cta-btn .cta-arrow {
+      position: absolute; right: 20px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px; opacity: 0.7;
+    }
+
+    /* Hero bottom wave */
+    .hero-wave {
+      display: block;
+      position: relative; z-index: 2;
+      margin-top: -2px;
+    }
+
+    /* ── SECTION: GARMENTS ── */
+    .section-garments {
+      padding: 28px 20px 24px;
+      background: var(--bg);
+    }
+    .section-label {
+      text-align: center; margin-bottom: 6px;
+    }
+    .section-label .en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 600; color: var(--deep-purple); letter-spacing: 0.2px;
+    }
+    .section-label .ta {
+      font-family: 'Noto Sans Tamil', sans-serif;
+      font-size: 13px; color: var(--eminence); opacity: 0.7; margin-top: 2px;
+    }
+    .section-divider {
+      width: 48px; height: 2px;
+      background: linear-gradient(90deg, var(--fawn), var(--sunset));
+      border-radius: 2px; margin: 10px auto 22px;
+    }
+
+    .garment-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .garment-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1.5px solid rgba(113,30,123,0.08);
+      padding: 22px 16px 18px;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 10px;
+      box-shadow: var(--shadow-card);
+      cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: transform var(--transition), box-shadow 0.2s ease, border-color 0.2s ease;
+      text-align: center;
+      animation: cardIn 0.6s var(--transition) both;
+    }
+    .garment-card:nth-child(1) { animation-delay: 3.4s; }
+    .garment-card:nth-child(2) { animation-delay: 3.5s; }
+    .garment-card:nth-child(3) { animation-delay: 3.6s; }
+    .garment-card:nth-child(4) { animation-delay: 3.7s; }
+    .garment-card::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 60px; height: 60px;
+      background: radial-gradient(circle at top right, rgba(185,55,157,0.06), transparent 70%);
+      border-radius: 0 var(--radius-lg) 0 60px;
+    }
+    .garment-card:active {
+      transform: scale(0.96);
+      box-shadow: 0 2px 8px rgba(113,30,123,0.12);
+    }
+    .garment-card.selected {
+      border-color: var(--sunset);
+      background: linear-gradient(135deg, rgba(185,55,157,0.04), rgba(113,30,123,0.04));
+      box-shadow: 0 4px 24px rgba(185,55,157,0.18);
+    }
+    .garment-card.selected .garment-checkmark { opacity: 1; transform: scale(1); }
+    .garment-checkmark {
+      position: absolute; top: 10px; right: 10px;
+      width: 22px; height: 22px;
+      background: linear-gradient(135deg, var(--eminence), var(--sunset));
+      border-radius: 50%; color: white; font-size: 12px;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(0);
+      transition: all var(--transition);
+    }
+    .garment-icon {
+      width: 72px; height: 72px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(238,218,165,0.3), rgba(185,55,157,0.1));
+      transition: background 0.3s;
+    }
+    .garment-card.selected .garment-icon {
+      background: linear-gradient(135deg, rgba(185,55,157,0.15), rgba(113,30,123,0.12));
+    }
+    .garment-icon svg { width: 44px; height: 44px; }
+    .garment-name-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px; font-weight: 600; color: var(--deep-purple); line-height: 1.2;
+    }
+    .garment-name-ta {
+      font-family: 'Noto Sans Tamil', sans-serif;
+      font-size: 12px; color: var(--eminence); opacity: 0.75; line-height: 1.4;
+    }
+    .garment-badge {
+      font-size: 10px; font-weight: 600;
+      color: var(--sunset); background: rgba(185,55,157,0.08);
+      border-radius: 8px; padding: 3px 8px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── SECTION: TRUST POINTS ── */
+    .section-trust {
+      padding: 24px 20px 32px;
+      background: var(--bg2);
+      position: relative; overflow: hidden;
+    }
+    .section-trust::before {
+      content: '';
+      position: absolute; bottom: -30px; left: -30px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(238,218,165,0.2), transparent 70%);
+      pointer-events: none;
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .trust-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 18px 10px;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 8px; text-align: center;
+      border: 1px solid rgba(113,30,123,0.07);
+      box-shadow: var(--shadow-card);
+      animation: cardIn 0.6s var(--transition) both;
+    }
+    .trust-card:nth-child(1) { animation-delay: 3.8s; }
+    .trust-card:nth-child(2) { animation-delay: 3.9s; }
+    .trust-card:nth-child(3) { animation-delay: 4s; }
+    .trust-icon {
+      width: 44px; height: 44px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(238,218,165,0.4), rgba(185,55,157,0.1));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .trust-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px; font-weight: 600; color: var(--deep-purple); line-height: 1.2;
+    }
+    .trust-ta {
+      font-family: 'Noto Sans Tamil', sans-serif;
+      font-size: 10px; color: var(--eminence); opacity: 0.65; line-height: 1.4;
+    }
+
+    /* ── FLOATING FLORAL DECORATION ── */
+    .floral-decoration {
+      position: absolute; pointer-events: none;
+      opacity: 0.18;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 24px 24px 40px;
+      text-align: center;
+      background: var(--bg);
+      border-top: 1px solid rgba(113,30,123,0.07);
+    }
+    .footer-logo-row {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      margin-bottom: 8px;
+    }
+    .footer-logo-img { width: 32px; height: 32px; border-radius: 50%; object-fit: contain; }
+    .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--deep-purple); letter-spacing: 1.5px; }
+    .footer-text { font-size: 11px; color: var(--eminence); opacity: 0.6; line-height: 1.6; }
+    .footer-wa-row { margin-top: 16px; }
+    .footer-wa-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: white; border-radius: 50px;
+      text-decoration: none; font-size: 13px; font-weight: 600;
+      box-shadow: 0 4px 16px rgba(37,211,102,0.3);
+    }
+
+    /* ── TOAST NOTIFICATION ── */
+    #toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+      z-index: 9000;
+      background: linear-gradient(135deg, #330C4B, #51017C);
+      color: white; border-radius: 16px; padding: 12px 20px;
+      font-size: 13px; font-weight: 500; white-space: nowrap;
+      box-shadow: 0 8px 32px rgba(51,12,75,0.4);
+      display: flex; align-items: center; gap: 8px;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── RIPPLE ── */
+    .ripple {
+      position: absolute; border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transform: scale(0); animation: rippleAnim 0.6s linear;
+      pointer-events: none;
+    }
+    @keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
+
+    /* ── KEYFRAMES ── */
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes floatPetal {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.15; }
+      90%  { opacity: 0.1; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 8px 32px rgba(227,168,138,0.4); }
+      50%       { box-shadow: 0 8px 48px rgba(227,168,138,0.7), 0 0 0 8px rgba(227,168,138,0.1); }
+    }
+    .cta-pulse { animation: pulseGlow 2.5s ease-in-out 4.5s infinite; }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position:  200% center; }
+    }
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+    .float-anim { animation: floatY 4s ease-in-out infinite; }
+
+    /* ── LANGUAGE VISIBILITY ── */
+    body.lang-ta .show-en { display: none !important; }
+    body.lang-ta .show-ta { display: block !important; }
+    body.lang-en .show-ta { display: none !important; }
+    body.lang-en .show-en { display: block !important; }
+    .show-ta { display: none; }
+    .bilingual-en { display: block; }
+    .bilingual-ta { display: none; }
+    body.lang-ta .bilingual-en { display: none; }
+    body.lang-ta .bilingual-ta { display: block; }
+
+    /* ── PROGRESS INDICATOR (for future phases) ── */
+    .progress-bar-wrap {
+      padding: 0; height: 3px;
+      background: rgba(113,30,123,0.1);
+    }
+    .progress-bar-fill {
+      height: 100%; width: 14%;
+      background: linear-gradient(90deg, var(--eminence), var(--sunset));
+      border-radius: 0 2px 2px 0;
+      transition: width 0.5s ease;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(113,30,123,0.3); border-radius: 4px; }
+
+    /* ── SAFE AREA ── */
+    @supports (padding-bottom: env(safe-area-inset-bottom)) {
+      footer { padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
+    }
+  </style>
+</head>
+<body class="lang-en">
+
+  <!-- ══════ SPLASH SCREEN ══════ -->
+  <div id="splash" aria-hidden="true">
+    <div class="splash-logo">
+      <img src="logo.jpg" alt="Womens World Logo" onerror="this.style.display='none';this.parentElement.innerHTML='<svg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\'><text y=\'45\' x=\'10\' font-size=\'36\'>🌸</text></svg>'" />
+    </div>
+    <div class="splash-brand">WOMENS WORLD</div>
+    <div class="splash-sub">Design Your Dream Outfit</div>
+    <div class="splash-dots">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <!-- ══════ DRAWER OVERLAY ══════ -->
+  <div id="drawer-overlay" onclick="closeDrawer()"></div>
+
+  <!-- ══════ SIDE DRAWER ══════ -->
+  <nav id="drawer" role="navigation" aria-label="Main Navigation">
+    <div class="drawer-header">
+      <div class="drawer-logo-row">
+        <img src="logo.jpg" class="drawer-logo-img" alt="Logo" onerror="this.style.display='none'" />
+        <span class="drawer-brand-name">WOMENS WORLD</span>
+      </div>
+      <div class="drawer-sub">Design Your Dream Outfit</div>
+      <button class="drawer-close" onclick="closeDrawer()" aria-label="Close menu">✕</button>
+    </div>
+    <div class="drawer-nav">
+      <a href="#" onclick="closeDrawer();scrollToGarments();return false;">
+        <span class="nav-icon">👗</span>
+        <span class="bilingual-en">Start Designing</span>
+        <span class="bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif">வடிவமைப்பை தொடங்குங்கள்</span>
+        <span class="nav-arrow">›</span>
+      </a>
+      <a href="#" onclick="closeDrawer();return false;">
+        <span class="nav-icon">📐</span>
+        <span class="bilingual-en">Blouse</span>
+        <span class="bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif">பிளவுஸ்</span>
+        <span class="nav-arrow">›</span>
+      </a>
+      <a href="#" onclick="closeDrawer();return false;">
+        <span class="nav-icon">👘</span>
+        <span class="bilingual-en">Chudi / Kurti</span>
+        <span class="bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif">சுடிதார் / குர்த்தி</span>
+        <span class="nav-arrow">›</span>
+      </a>
+      <a href="#" onclick="closeDrawer();return false;">
+        <span class="nav-icon">🎀</span>
+        <span class="bilingual-en">Lehenga</span>
+        <span class="bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif">லெஹங்கா</span>
+        <span class="nav-arrow">›</span>
+      </a>
+      <a href="#" onclick="closeDrawer();return false;">
+        <span class="nav-icon">✨</span>
+        <span class="bilingual-en">Sattai Pavadai</span>
+        <span class="bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif">சட்டை பாவாடை</span>
+        <span class="nav-arrow">›</span>
+      </a>
+      <a href="#trust" onclick="closeDrawer();return false;">
+        <span class="nav-icon">💎</span>
+        <span class="bilingual-en">Why Choose Us</span>
+        <span class="bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif">ஏன் எங்களை தேர்ந்தெடுக்கணும்</span>
+        <span class="nav-arrow">›</span>
+      </a>
+    </div>
+    <div class="drawer-footer">
+      <a href="https://wa.me/919876543210" class="drawer-wa-btn" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span class="bilingual-en">Chat on WhatsApp</span>
+        <span class="bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif">வாட்ஸ்அப்பில் பேசுங்கள்</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ══════ HEADER ══════ -->
+  <header>
+    <div class="header-left">
+      <button class="hamburger" onclick="openDrawer()" aria-label="Open menu" aria-expanded="false" id="hamburger-btn">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="header-center">
+      <div class="header-brand">WOMENS WORLD</div>
+      <div class="header-sub bilingual-en">Design Your Dream Outfit</div>
+      <div class="header-sub bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:8px;">உங்கள் கனவு உடை வடிவமைக்கவும்</div>
+    </div>
+    <div class="header-right">
+      <div class="lang-toggle" role="group" aria-label="Language switcher">
+        <button class="lang-btn active" id="btn-en" onclick="setLang('en')" aria-pressed="true">EN</button>
+        <button class="lang-btn" id="btn-ta" onclick="setLang('ta')" aria-pressed="false" style="font-family:'Noto Sans Tamil',sans-serif">தமிழ்</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Progress bar (phase indicator) -->
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressBar"></div>
+  </div>
+
+  <!-- ══════ MAIN CONTENT ══════ -->
+  <main>
+
+    <!-- ── HERO SECTION ── -->
+    <section class="hero" aria-label="Hero">
+
+      <!-- Animated floating petals -->
+      <div class="hero-floral-bg" aria-hidden="true" id="floralBg"></div>
+
+      <!-- Background decorative SVG -->
+      <svg style="position:absolute;top:-10px;right:-20px;width:200px;opacity:0.07;pointer-events:none;" viewBox="0 0 200 200" fill="none">
+        <circle cx="160" cy="40" r="80" fill="#EEDAA5"/>
+        <circle cx="40" cy="160" r="60" fill="#B9379D"/>
+      </svg>
+      <svg style="position:absolute;bottom:60px;left:-30px;width:140px;opacity:0.1;pointer-events:none;" viewBox="0 0 140 140" fill="none">
+        <path d="M70 10 C30 10 10 40 10 70 C10 100 30 130 70 130 C110 130 130 100 130 70 C130 40 110 10 70 10Z" fill="#E3A88A"/>
+      </svg>
+
+      <!-- Floral corner SVG top right -->
+      <svg style="position:absolute;top:0;right:0;width:130px;opacity:0.15;pointer-events:none;" viewBox="0 0 130 130" fill="none">
+        <path d="M130,0 Q100,20 80,50 Q60,80 40,100 Q20,120 0,130" stroke="#EEDAA5" stroke-width="1" fill="none"/>
+        <circle cx="80" cy="15" r="4" fill="#E3A88A" opacity="0.6"/>
+        <circle cx="115" cy="35" r="3" fill="#EEDAA5" opacity="0.5"/>
+        <path d="M90,5 Q95,15 85,20 Q75,25 80,5Z" fill="#E3A88A" opacity="0.4"/>
+        <path d="M110,25 Q118,35 108,38 Q98,41 106,25Z" fill="#EEDAA5" opacity="0.4"/>
+        <path d="M60,40 Q70,55 55,58 Q40,61 50,40Z" fill="#E3A88A" opacity="0.3"/>
+        <path d="M35,65 Q48,78 33,83 Q18,88 27,65Z" fill="#EEDAA5" opacity="0.3"/>
+        <path d="M15,92 Q26,108 11,112 Q-4,116 6,92Z" fill="#E3A88A" opacity="0.25"/>
+      </svg>
+
+      <!-- Floral corner SVG bottom left -->
+      <svg style="position:absolute;bottom:50px;left:0;width:100px;opacity:0.12;pointer-events:none;" viewBox="0 0 100 100" fill="none">
+        <path d="M0,100 Q20,80 40,55 Q60,30 80,15 Q100,0 100,0" stroke="#EEDAA5" stroke-width="1" fill="none"/>
+        <path d="M5,80 Q15,72 10,62 Q5,52 18,60 Q28,68 15,78Z" fill="#E3A88A" opacity="0.5"/>
+        <path d="M25,55 Q38,48 32,36 Q26,24 40,33 Q52,42 37,53Z" fill="#EEDAA5" opacity="0.45"/>
+        <path d="M52,32 Q62,22 58,12 Q54,2 65,12 Q74,22 62,30Z" fill="#E3A88A" opacity="0.4"/>
+        <circle cx="14" cy="85" r="3" fill="#EEDAA5" opacity="0.5"/>
+        <circle cx="38" cy="60" r="2.5" fill="#E3A88A" opacity="0.45"/>
+        <circle cx="62" cy="38" r="2" fill="#EEDAA5" opacity="0.4"/>
+      </svg>
+
+      <!-- Hero Inner content -->
+      <div class="hero-inner">
+        <div class="hero-tagline">
+          <span class="bilingual-en">Handcrafted for You</span>
+          <span class="bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:10px;">உங்களுக்காக கைவினை</span>
+        </div>
+
+        <div class="hero-content-row">
+          <div class="hero-text">
+            <!-- English heading -->
+            <h1 class="hero-heading bilingual-en">
+              Your<br><em>Style.</em><br>Our<br>Stitch.<br>Together<br><em>Beautiful.</em>
+            </h1>
+            <!-- Tamil heading -->
+            <h1 class="hero-heading bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:22px;color:white;line-height:1.6;">
+              உங்கள் ஸ்டைல்.<br>
+              <span style="color:var(--maize)">எங்கள் தையல்.</span><br>
+              இணைந்து அழகாக.
+            </h1>
+          </div>
+
+          <!-- Elegant SVG Woman Illustration -->
+          <div class="hero-illustration float-anim" aria-hidden="true">
+            <svg viewBox="0 0 150 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Decorative circle behind figure -->
+              <ellipse cx="75" cy="140" rx="60" ry="120" fill="rgba(185,55,157,0.12)" />
+              <!-- Decorative ring -->
+              <ellipse cx="75" cy="140" rx="55" ry="115" stroke="rgba(238,218,165,0.2)" stroke-width="1" fill="none"/>
+
+              <!-- Hair bun with flower decoration -->
+              <ellipse cx="75" cy="28" rx="22" ry="18" fill="#1a0020"/>
+              <ellipse cx="75" cy="22" rx="18" ry="14" fill="#260030"/>
+              <ellipse cx="75" cy="18" rx="14" ry="11" fill="#330C4B"/>
+              <!-- Hair flower -->
+              <circle cx="90" cy="20" r="3" fill="#E3A88A" opacity="0.9"/>
+              <circle cx="87" cy="15" r="2" fill="#EEDAA5" opacity="0.8"/>
+              <circle cx="93" cy="16" r="2" fill="#E3A88A" opacity="0.7"/>
+              <!-- Jasmine string hint -->
+              <path d="M72,16 Q78,12 85,16 Q90,18 92,22" stroke="rgba(238,218,165,0.6)" stroke-width="1" fill="none"/>
+              <circle cx="75" cy="14" r="1.5" fill="white" opacity="0.6"/>
+              <circle cx="80" cy="12" r="1.5" fill="white" opacity="0.5"/>
+              <circle cx="85" cy="13" r="1.5" fill="white" opacity="0.5"/>
+
+              <!-- Face -->
+              <ellipse cx="75" cy="48" rx="14" ry="17" fill="#D4956A"/>
+              <!-- Neck -->
+              <rect x="70" y="63" width="10" height="10" rx="2" fill="#C8845A"/>
+              <!-- Ear -->
+              <ellipse cx="61" cy="48" rx="3" ry="4" fill="#C8845A"/>
+              <ellipse cx="89" cy="48" rx="3" ry="4" fill="#C8845A"/>
+              <!-- Jhumka earring -->
+              <circle cx="89" cy="53" r="4" fill="rgba(238,218,165,0.8)" stroke="rgba(185,55,157,0.5)" stroke-width="0.5"/>
+              <path d="M87,57 Q89,63 91,57" fill="rgba(238,218,165,0.6)" stroke="none"/>
+
+              <!-- Bindi -->
+              <circle cx="75" cy="40" r="2" fill="#B9379D"/>
+
+              <!-- Eyes -->
+              <ellipse cx="69" cy="47" rx="3.5" ry="2.5" fill="#1a0010"/>
+              <ellipse cx="81" cy="47" rx="3.5" ry="2.5" fill="#1a0010"/>
+              <circle cx="70" cy="46.5" r="1" fill="white"/>
+              <circle cx="82" cy="46.5" r="1" fill="white"/>
+
+              <!-- Subtle smile -->
+              <path d="M71,56 Q75,59 79,56" stroke="#9b5030" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+
+              <!-- Necklace -->
+              <path d="M63,73 Q75,83 87,73" stroke="rgba(238,218,165,0.9)" stroke-width="1.5" fill="none"/>
+              <circle cx="75" cy="82" r="3" fill="rgba(238,218,165,0.8)" stroke="rgba(185,55,157,0.4)" stroke-width="0.5"/>
+              <circle cx="68" cy="78" r="1.5" fill="rgba(238,218,165,0.6)"/>
+              <circle cx="82" cy="78" r="1.5" fill="rgba(238,218,165,0.6)"/>
+
+              <!-- Blouse body -->
+              <path d="M56,73 L42,120 L108,120 L94,73 Q85,78 75,78 Q65,78 56,73Z" fill="#711E7B"/>
+              <!-- Blouse embroidery pattern -->
+              <path d="M60,85 Q75,92 90,85" stroke="rgba(238,218,165,0.5)" stroke-width="1" fill="none"/>
+              <path d="M58,92 Q75,100 92,92" stroke="rgba(238,218,165,0.4)" stroke-width="0.8" fill="none"/>
+              <circle cx="75" cy="88" r="2.5" fill="rgba(238,218,165,0.5)"/>
+              <circle cx="68" cy="90" r="1.5" fill="rgba(185,55,157,0.6)"/>
+              <circle cx="82" cy="90" r="1.5" fill="rgba(185,55,157,0.6)"/>
+              <!-- Blouse highlight -->
+              <path d="M56,73 Q55,95 44,115" stroke="rgba(255,255,255,0.1)" stroke-width="1" fill="none"/>
+
+              <!-- Sleeves - 3/4 length embroidered -->
+              <path d="M56,73 Q44,85 38,108 L46,110 Q52,92 62,80Z" fill="#711E7B"/>
+              <path d="M94,73 Q106,85 112,108 L104,110 Q98,92 88,80Z" fill="#711E7B"/>
+              <!-- Sleeve embroidery border -->
+              <path d="M40,108 Q44,112 48,108" stroke="rgba(238,218,165,0.7)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M102,108 Q106,112 110,108" stroke="rgba(238,218,165,0.7)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <!-- Sleeve pattern dots -->
+              <circle cx="45" cy="95" r="1.5" fill="rgba(238,218,165,0.5)"/>
+              <circle cx="41" cy="102" r="1.5" fill="rgba(238,218,165,0.4)"/>
+              <circle cx="105" cy="95" r="1.5" fill="rgba(238,218,165,0.5)"/>
+              <circle cx="109" cy="102" r="1.5" fill="rgba(238,218,165,0.4)"/>
+
+              <!-- Saree drape over shoulder -->
+              <path d="M88,80 Q105,85 112,100 Q115,110 108,120 L95,120 Q100,108 95,98 Q90,88 85,85Z" fill="#B9379D" opacity="0.85"/>
+              <!-- Saree border -->
+              <path d="M90,83 Q106,89 113,103" stroke="rgba(238,218,165,0.6)" stroke-width="1" fill="none"/>
+              <path d="M92,87 Q107,93 114,107" stroke="rgba(238,218,165,0.4)" stroke-width="0.7" fill="none"/>
+
+              <!-- Saree pleats body (below blouse) -->
+              <path d="M42,120 L35,230 Q55,240 75,240 Q95,240 115,230 L108,120Z" fill="#51017C"/>
+              <!-- Saree pleats lines -->
+              <path d="M52,125 L48,228" stroke="rgba(238,218,165,0.15)" stroke-width="1" fill="none"/>
+              <path d="M60,122 L57,235" stroke="rgba(238,218,165,0.12)" stroke-width="1" fill="none"/>
+              <path d="M68,121 L66,238" stroke="rgba(238,218,165,0.1)" stroke-width="1" fill="none"/>
+              <path d="M76,120 L76,240" stroke="rgba(238,218,165,0.1)" stroke-width="1" fill="none"/>
+              <path d="M84,121 L85,238" stroke="rgba(238,218,165,0.1)" stroke-width="1" fill="none"/>
+              <path d="M92,122 L93,235" stroke="rgba(238,218,165,0.12)" stroke-width="1" fill="none"/>
+              <path d="M100,125 L102,228" stroke="rgba(238,218,165,0.15)" stroke-width="1" fill="none"/>
+
+              <!-- Saree border at hem -->
+              <path d="M37,225 Q75,238 113,225" stroke="rgba(238,218,165,0.5)" stroke-width="2" fill="none"/>
+              <path d="M38,228 Q75,241 112,228" stroke="rgba(185,55,157,0.4)" stroke-width="1" fill="none"/>
+
+              <!-- Embroidery motifs on saree -->
+              <path d="M55,160 Q60,152 65,160 Q60,168 55,160Z" fill="rgba(238,218,165,0.2)"/>
+              <path d="M80,150 Q85,142 90,150 Q85,158 80,150Z" fill="rgba(238,218,165,0.2)"/>
+              <path d="M62,185 Q67,177 72,185 Q67,193 62,185Z" fill="rgba(238,218,165,0.15)"/>
+              <path d="M88,178 Q93,170 98,178 Q93,186 88,178Z" fill="rgba(238,218,165,0.15)"/>
+
+              <!-- Saree pallu falling to side -->
+              <path d="M108,120 Q120,140 118,180 Q116,210 108,230" stroke="rgba(185,55,157,0.5)" stroke-width="8" fill="none" stroke-linecap="round"/>
+
+              <!-- Feet / anklet -->
+              <ellipse cx="55" cy="238" rx="10" ry="6" fill="#C8845A" opacity="0.9"/>
+              <ellipse cx="95" cy="238" rx="10" ry="6" fill="#C8845A" opacity="0.9"/>
+              <path d="M47,240 Q55,244 63,240" stroke="rgba(238,218,165,0.7)" stroke-width="1.5" fill="none"/>
+              <path d="M87,240 Q95,244 103,240" stroke="rgba(238,218,165,0.7)" stroke-width="1.5" fill="none"/>
+
+              <!-- Bangles on wrists -->
+              <ellipse cx="39" cy="109" rx="6" ry="2.5" stroke="rgba(238,218,165,0.8)" stroke-width="1.5" fill="none"/>
+              <ellipse cx="39" cy="112" rx="6" ry="2.5" stroke="rgba(185,55,157,0.6)" stroke-width="1" fill="none"/>
+              <ellipse cx="111" cy="109" rx="6" ry="2.5" stroke="rgba(238,218,165,0.8)" stroke-width="1.5" fill="none"/>
+              <ellipse cx="111" cy="112" rx="6" ry="2.5" stroke="rgba(185,55,157,0.6)" stroke-width="1" fill="none"/>
+
+              <!-- Decorative sparkles around figure -->
+              <path d="M20,60 L22,55 L24,60 L22,65Z" fill="rgba(238,218,165,0.5)"/>
+              <path d="M128,80 L130,75 L132,80 L130,85Z" fill="rgba(238,218,165,0.4)"/>
+              <path d="M22,180 L24,175 L26,180 L24,185Z" fill="rgba(185,55,157,0.5)"/>
+              <path d="M125,170 L127,165 L129,170 L127,175Z" fill="rgba(185,55,157,0.4)"/>
+              <circle cx="128" cy="50" r="2" fill="rgba(238,218,165,0.4)"/>
+              <circle cx="22" cy="150" r="1.5" fill="rgba(238,218,165,0.3)"/>
+            </svg>
+          </div>
+        </div>
+      </div><!-- /hero-inner -->
+
+      <!-- CTA Button -->
+      <div class="hero-cta-area">
+        <button class="cta-btn cta-pulse" onclick="goToChooseGarment(); createRipple(event, this)" id="mainCta">
+          <span class="cta-en bilingual-en">Create Your Own Design ✦</span>
+          <span class="cta-ta bilingual-en">உங்கள் சொந்த வடிவமைப்பை உருவாக்குங்கள்</span>
+          <span class="cta-en bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:14px;">உங்கள் சொந்த வடிவமைப்பை உருவாக்குங்கள் ✦</span>
+          <span class="cta-ta bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:11px;">Create Your Own Design</span>
+          <span class="cta-arrow">→</span>
+        </button>
+      </div>
+
+      <!-- Wave divider -->
+      <svg class="hero-wave" viewBox="0 0 390 40" preserveAspectRatio="none" style="width:100%;height:40px;display:block;margin-top:-1px;">
+        <path d="M0,40 L0,15 Q40,0 80,15 Q120,30 160,15 Q200,0 240,15 Q280,30 320,15 Q360,0 390,15 L390,40Z" fill="#FBF3F8"/>
+      </svg>
+    </section>
+
+    <!-- ── GARMENT SECTION ── -->
+    <section class="section-garments" id="garments" aria-label="Choose garment type">
+      <div class="section-label">
+        <div class="en bilingual-en" style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--deep-purple);">
+          What would you like to design?
+        </div>
+        <div class="ta bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:16px;font-weight:500;color:var(--deep-purple);">
+          நீங்கள் என்ன வடிவமைக்க விரும்புகிறீர்கள்?
+        </div>
+        <div class="bilingual-en" style="font-size:13px;color:var(--eminence);opacity:0.7;margin-top:4px;">
+          எதை தனிப்பயனாக வடிவமைக்க விரும்புகிறீர்கள்?
+        </div>
+        <div class="bilingual-ta" style="font-size:12px;color:var(--eminence);opacity:0.7;margin-top:4px;font-family:'Noto Sans Tamil',sans-serif;">
+          Select what you'd like to customize
+        </div>
+      </div>
+      <div class="section-divider"></div>
+
+      <div class="garment-grid" id="garmentGrid">
+
+        <!-- Blouse -->
+        <div class="garment-card" onclick="selectGarment(this,'blouse')" role="button" tabindex="0" aria-label="Blouse" onkeydown="if(event.key==='Enter')selectGarment(this,'blouse')">
+          <div class="garment-checkmark">✓</div>
+          <div class="garment-icon">
+            <svg viewBox="0 0 44 44" fill="none">
+              <!-- Blouse SVG icon -->
+              <path d="M14,10 Q22,7 30,10 L36,18 L30,20 L28,38 L16,38 L14,20 L8,18Z" fill="url(#blouseGrad)" rx="2"/>
+              <path d="M14,10 Q10,14 8,18" stroke="#711E7B" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M30,10 Q34,14 36,18" stroke="#711E7B" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M16,16 Q22,20 28,16" stroke="rgba(238,218,165,0.8)" stroke-width="1" fill="none"/>
+              <circle cx="22" cy="20" r="1.5" fill="rgba(238,218,165,0.7)"/>
+              <path d="M17,26 Q22,29 27,26" stroke="rgba(238,218,165,0.5)" stroke-width="0.8" fill="none"/>
+              <defs>
+                <linearGradient id="blouseGrad" x1="8" y1="7" x2="36" y2="38" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#711E7B"/>
+                  <stop offset="100%" stop-color="#B9379D"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div>
+            <div class="garment-name-en">Blouse</div>
+            <div class="garment-name-ta">பிளவுஸ்</div>
+          </div>
+          <div class="garment-badge bilingual-en">Most Popular</div>
+          <div class="garment-badge bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif">மிகவும் பிரபலம்</div>
+        </div>
+
+        <!-- Chudi / Kurti -->
+        <div class="garment-card" onclick="selectGarment(this,'chudi')" role="button" tabindex="0" aria-label="Chudi Kurti" onkeydown="if(event.key==='Enter')selectGarment(this,'chudi')">
+          <div class="garment-checkmark">✓</div>
+          <div class="garment-icon">
+            <svg viewBox="0 0 44 44" fill="none">
+              <!-- Kurti SVG icon -->
+              <path d="M13,8 Q22,5 31,8 L36,16 L30,18 L29,42 L15,42 L14,18 L8,16Z" fill="url(#churiGrad)"/>
+              <path d="M13,8 Q9,12 8,16" stroke="#B9379D" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M31,8 Q35,12 36,16" stroke="#B9379D" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <!-- Neckline detail -->
+              <path d="M17,10 Q22,16 27,10" stroke="rgba(238,218,165,0.9)" stroke-width="1.2" fill="none"/>
+              <!-- Kurti pattern lines -->
+              <path d="M16,22 Q22,25 28,22" stroke="rgba(238,218,165,0.5)" stroke-width="0.8" fill="none"/>
+              <path d="M15,30 Q22,33 29,30" stroke="rgba(238,218,165,0.4)" stroke-width="0.8" fill="none"/>
+              <!-- Button detail -->
+              <circle cx="22" cy="18" r="1.5" fill="rgba(238,218,165,0.7)"/>
+              <circle cx="22" cy="23" r="1.5" fill="rgba(238,218,165,0.5)"/>
+              <circle cx="22" cy="28" r="1.5" fill="rgba(238,218,165,0.5)"/>
+              <!-- Hem embroidery -->
+              <path d="M15,38 Q22,41 29,38" stroke="rgba(238,218,165,0.7)" stroke-width="1.2" fill="none"/>
+              <defs>
+                <linearGradient id="churiGrad" x1="8" y1="5" x2="36" y2="42" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#51017C"/>
+                  <stop offset="100%" stop-color="#B9379D"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div>
+            <div class="garment-name-en">Chudi / Kurti</div>
+            <div class="garment-name-ta">சுடிதார் / குர்த்தி</div>
+          </div>
+          <div class="garment-badge bilingual-en">Trending</div>
+          <div class="garment-badge bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif">டிரெண்டிங்</div>
+        </div>
+
+        <!-- Lehenga -->
+        <div class="garment-card" onclick="selectGarment(this,'lehenga')" role="button" tabindex="0" aria-label="Lehenga" onkeydown="if(event.key==='Enter')selectGarment(this,'lehenga')">
+          <div class="garment-checkmark">✓</div>
+          <div class="garment-icon">
+            <svg viewBox="0 0 44 44" fill="none">
+              <!-- Lehenga top (choli) -->
+              <path d="M15,8 Q22,5 29,8 L32,14 L28,15 L22,16 L16,15 L12,14Z" fill="url(#lehengaTopGrad)"/>
+              <!-- Lehenga skirt flared -->
+              <path d="M16,15 L8,42 L36,42 L28,15 Q22,18 16,15Z" fill="url(#lehengaSkirtGrad)"/>
+              <!-- Lehenga skirt pattern -->
+              <path d="M10,30 Q22,36 34,30" stroke="rgba(238,218,165,0.5)" stroke-width="1" fill="none"/>
+              <path d="M9,36 Q22,42 35,36" stroke="rgba(238,218,165,0.6)" stroke-width="1.2" fill="none"/>
+              <!-- Vertical embroidery lines -->
+              <path d="M14,20 L10,40" stroke="rgba(238,218,165,0.2)" stroke-width="0.8" fill="none"/>
+              <path d="M19,18 L16,42" stroke="rgba(238,218,165,0.2)" stroke-width="0.8" fill="none"/>
+              <path d="M25,18 L28,42" stroke="rgba(238,218,165,0.2)" stroke-width="0.8" fill="none"/>
+              <path d="M30,20 L34,40" stroke="rgba(238,218,165,0.2)" stroke-width="0.8" fill="none"/>
+              <!-- Choli detail -->
+              <path d="M16,10 Q22,13 28,10" stroke="rgba(238,218,165,0.8)" stroke-width="1" fill="none"/>
+              <defs>
+                <linearGradient id="lehengaTopGrad" x1="12" y1="5" x2="32" y2="16" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#711E7B"/>
+                  <stop offset="100%" stop-color="#B9379D"/>
+                </linearGradient>
+                <linearGradient id="lehengaSkirtGrad" x1="8" y1="15" x2="36" y2="42" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#330C4B"/>
+                  <stop offset="100%" stop-color="#51017C"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div>
+            <div class="garment-name-en">Lehenga</div>
+            <div class="garment-name-ta">லெஹங்கா</div>
+          </div>
+          <div class="garment-badge bilingual-en">Bridal Fav</div>
+          <div class="garment-badge bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif">மணப்பெண் பிரிய</div>
+        </div>
+
+        <!-- Sattai Pavadai -->
+        <div class="garment-card" onclick="selectGarment(this,'sattai')" role="button" tabindex="0" aria-label="Sattai Pavadai" onkeydown="if(event.key==='Enter')selectGarment(this,'sattai')">
+          <div class="garment-checkmark">✓</div>
+          <div class="garment-icon">
+            <svg viewBox="0 0 44 44" fill="none">
+              <!-- Pavadai skirt -->
+              <path d="M13,20 L8,42 L36,42 L31,20Z" fill="url(#pavadaiSkirtGrad)"/>
+              <!-- Sattai blouse top -->
+              <path d="M13,8 Q22,5 31,8 L33,18 L28,19 L31,20 L13,20 L16,19 L11,18Z" fill="url(#pavadaiTopGrad)"/>
+              <!-- Sleeve details -->
+              <path d="M13,8 Q8,10 11,18" stroke="#B9379D" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M31,8 Q36,10 33,18" stroke="#B9379D" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <!-- Pavadai pattern -->
+              <path d="M10,30 Q22,35 34,30" stroke="rgba(238,218,165,0.6)" stroke-width="1.2" fill="none"/>
+              <path d="M9,36 Q22,41 35,36" stroke="rgba(238,218,165,0.7)" stroke-width="1.5" fill="none"/>
+              <!-- Pleats -->
+              <path d="M16,22 L12,42" stroke="rgba(238,218,165,0.15)" stroke-width="0.8" fill="none"/>
+              <path d="M22,21 L22,42" stroke="rgba(238,218,165,0.15)" stroke-width="0.8" fill="none"/>
+              <path d="M28,22 L32,42" stroke="rgba(238,218,165,0.15)" stroke-width="0.8" fill="none"/>
+              <!-- Blouse neckline -->
+              <path d="M17,10 Q22,15 27,10" stroke="rgba(238,218,165,0.8)" stroke-width="1" fill="none"/>
+              <!-- Decorative motif -->
+              <circle cx="22" cy="26" r="2" fill="rgba(238,218,165,0.3)"/>
+              <path d="M19,26 Q22,22 25,26 Q22,30 19,26Z" fill="rgba(238,218,165,0.2)"/>
+              <defs>
+                <linearGradient id="pavadaiSkirtGrad" x1="8" y1="20" x2="36" y2="42" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#51017C"/>
+                  <stop offset="100%" stop-color="#330C4B"/>
+                </linearGradient>
+                <linearGradient id="pavadaiTopGrad" x1="13" y1="5" x2="31" y2="20" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#711E7B"/>
+                  <stop offset="100%" stop-color="#B9379D"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div>
+            <div class="garment-name-en">Sattai Pavadai</div>
+            <div class="garment-name-ta">சட்டை பாவாடை</div>
+          </div>
+          <div class="garment-badge bilingual-en">Kids Special</div>
+          <div class="garment-badge bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif">குழந்தைகள் சிறப்பு</div>
+        </div>
+
+      </div><!-- /garment-grid -->
+
+      <!-- Proceed button (appears when garment is selected) -->
+      <div id="proceedWrapper" style="margin-top:20px;opacity:0;transform:translateY(16px);transition:all 0.5s cubic-bezier(0.34,1.56,0.64,1);pointer-events:none;">
+        <button id="proceedBtn" onclick="proceedToDesign()" style="
+          width:100%;padding:16px 24px;
+          background:linear-gradient(135deg,#711E7B,#B9379D);
+          color:white;border:none;border-radius:18px;
+          font-size:15px;font-weight:600;cursor:pointer;
+          box-shadow:0 8px 28px rgba(113,30,123,0.35);
+          display:flex;align-items:center;justify-content:center;gap:10px;
+          position:relative;overflow:hidden;
+          letter-spacing:0.2px;
+        " onclick="createRipple(event,this);proceedToDesign()">
+          <span class="bilingual-en">Start Customising →</span>
+          <span class="bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif">தனிப்பயனாக்கலை தொடங்குங்கள் →</span>
+        </button>
+      </div>
+
+    </section><!-- /garments -->
+
+    <!-- ── TRUST POINTS SECTION ── -->
+    <section class="section-trust" id="trust" aria-label="Why choose us">
+      <div class="section-label" style="position:relative;z-index:1;">
+        <div class="bilingual-en" style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--deep-purple);">Why Choose Us?</div>
+        <div class="bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:16px;font-weight:500;color:var(--deep-purple);">ஏன் எங்களை தேர்ந்தெடுக்கணும்?</div>
+      </div>
+      <div class="section-divider"></div>
+
+      <div class="trust-grid" style="position:relative;z-index:1;">
+
+        <!-- Quality Stitching -->
+        <div class="trust-card">
+          <div class="trust-icon">🧵</div>
+          <div class="trust-en bilingual-en">Quality<br>Stitching</div>
+          <div class="trust-ta bilingual-en" style="font-family:'Noto Sans Tamil',sans-serif;font-size:10px;color:var(--eminence);opacity:0.65;">தரமான தையல்</div>
+          <div class="trust-en bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:12px;color:var(--deep-purple);font-weight:600;">தரமான<br>தையல்</div>
+          <div class="trust-ta bilingual-ta" style="font-size:10px;color:var(--eminence);opacity:0.65;">Quality Stitching</div>
+        </div>
+
+        <!-- Custom Design -->
+        <div class="trust-card">
+          <div class="trust-icon">✏️</div>
+          <div class="trust-en bilingual-en">Custom<br>Design</div>
+          <div class="trust-ta bilingual-en" style="font-family:'Noto Sans Tamil',sans-serif;font-size:10px;color:var(--eminence);opacity:0.65;">தனிப்பயன் வடிவமைப்பு</div>
+          <div class="trust-en bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:12px;color:var(--deep-purple);font-weight:600;">தனிப்பயன்<br>வடிவமைப்பு</div>
+          <div class="trust-ta bilingual-ta" style="font-size:10px;color:var(--eminence);opacity:0.65;">Custom Design</div>
+        </div>
+
+        <!-- Personal Consultation -->
+        <div class="trust-card">
+          <div class="trust-icon">💬</div>
+          <div class="trust-en bilingual-en">Personal<br>Consultation</div>
+          <div class="trust-ta bilingual-en" style="font-family:'Noto Sans Tamil',sans-serif;font-size:10px;color:var(--eminence);opacity:0.65;">தனிப்பட்ட ஆலோசனை</div>
+          <div class="trust-en bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:12px;color:var(--deep-purple);font-weight:600;">தனிப்பட்ட<br>ஆலோசனை</div>
+          <div class="trust-ta bilingual-ta" style="font-size:10px;color:var(--eminence);opacity:0.65;">Personal Consultation</div>
+        </div>
+
+      </div><!-- /trust-grid -->
+
+    </section><!-- /trust -->
+
+    <!-- ── FOOTER ── -->
+    <footer>
+      <!-- Floral decoration in footer -->
+      <svg style="position:absolute;right:20px;bottom:60px;width:80px;opacity:0.12;pointer-events:none;" viewBox="0 0 80 80" fill="none">
+        <path d="M40,5 Q55,20 50,35 Q45,50 60,60 Q75,70 70,80" stroke="#B9379D" stroke-width="1" fill="none"/>
+        <path d="M40,5 Q25,20 30,35 Q35,50 20,60 Q5,70 10,80" stroke="#E3A88A" stroke-width="1" fill="none"/>
+        <circle cx="40" cy="5" r="3" fill="#B9379D" opacity="0.5"/>
+        <path d="M35,20 Q40,14 45,20 Q40,26 35,20Z" fill="#E3A88A" opacity="0.4"/>
+        <path d="M32,35 Q40,28 48,35 Q40,42 32,35Z" fill="#B9379D" opacity="0.4"/>
+      </svg>
+
+      <div class="footer-logo-row">
+        <img src="logo.jpg" class="footer-logo-img" alt="Logo" onerror="this.style.display='none'"/>
+        <div class="footer-brand">WOMENS WORLD</div>
+      </div>
+      <div class="footer-text">
+        <span class="bilingual-en">Handcrafted with love · Premium South Indian tailoring</span>
+        <span class="bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif">அன்புடன் தைக்கப்பட்டது · உயர்தரமான தையல்</span>
+      </div>
+      <div class="footer-wa-row">
+        <a href="https://wa.me/919876543210" class="footer-wa-btn" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span class="bilingual-en">Chat with Us</span>
+          <span class="bilingual-ta" style="font-family:'Noto Sans Tamil',sans-serif">எங்களிடம் பேசுங்கள்</span>
+        </a>
+      </div>
+    </footer>
+
+  </main><!-- /main -->
+
+  <!-- ══════ TOAST ══════ -->
+  <div id="toast" role="alert" aria-live="polite">
+    <span id="toastEmoji">✨</span>
+    <span id="toastMsg">Blouse selected!</span>
+  </div>
+
+  <!-- ══════ JAVASCRIPT ══════ -->
+  <script>
+    'use strict';
+
+    /* ── State ── */
+    let currentLang = 'en';
+    let selectedGarment = null;
+
+    /* ── Language Toggle ── */
+    function setLang(lang) {
+      currentLang = lang;
+      document.body.classList.toggle('lang-ta', lang === 'ta');
+      document.body.classList.toggle('lang-en', lang === 'en');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-ta').classList.toggle('active', lang === 'ta');
+      document.getElementById('btn-en').setAttribute('aria-pressed', lang === 'en');
+      document.getElementById('btn-ta').setAttribute('aria-pressed', lang === 'ta');
+      document.documentElement.lang = lang === 'ta' ? 'ta' : 'en';
+    }
+
+    /* ── Drawer ── */
+    function openDrawer() {
+      document.getElementById('drawer').classList.add('open');
+      document.getElementById('drawer-overlay').classList.add('open');
+      document.getElementById('hamburger-btn').setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      document.getElementById('drawer').classList.remove('open');
+      document.getElementById('drawer-overlay').classList.remove('open');
+      document.getElementById('hamburger-btn').setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    /* ── Garment Selection ── */
+    const garmentNames = {
+      en: { blouse:'Blouse', chudi:'Chudi / Kurti', lehenga:'Lehenga', sattai:'Sattai Pavadai' },
+      ta: { blouse:'பிளவுஸ்', chudi:'சுடிதார் / குர்த்தி', lehenga:'லெஹங்கா', sattai:'சட்டை பாவாடை' }
+    };
+    function selectGarment(card, type) {
+      /* Deselect all */
+      document.querySelectorAll('.garment-card').forEach(c => c.classList.remove('selected'));
+      /* Select clicked */
+      card.classList.add('selected');
+      selectedGarment = type;
+      /* Animate proceed button in */
+      const pw = document.getElementById('proceedWrapper');
+      pw.style.opacity = '1';
+      pw.style.transform = 'translateY(0)';
+      pw.style.pointerEvents = 'all';
+      /* Toast */
+      const name = garmentNames[currentLang][type];
+      showToast(
+        '🎨',
+        currentLang === 'ta'
+          ? name + ' தேர்ந்தெடுக்கப்பட்டது!'
+          : name + ' selected!'
+      );
+      /* Haptic-style ripple on card */
+      createCardRipple(card);
+      /* Scroll proceed button into view */
+      setTimeout(() => {
+        document.getElementById('proceedWrapper').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 300);
+    }
+
+    /* ── Proceed to design ── */
+    function proceedToDesign() {
+      if (!selectedGarment) return;
+      showToast('🪡', currentLang === 'ta' ? 'வடிவமைப்பு திரை வரும்...' : 'Opening design screen...');
+      /* In Phase 2 this will route to the design flow */
+    }
+
+    /* ── Scroll helpers ── */
+    function scrollToGarments() {
+      document.getElementById('garments').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ── Navigate to choose-garment screen ── */
+    function goToChooseGarment(type) {
+      const url = 'choose-garment.html' + (type ? `?garment=${type}&lang=${currentLang}` : `?lang=${currentLang}`);
+      window.location.href = url;
+    }
+
+    /* ── Toast ── */
+    let toastTimer = null;
+    function showToast(emoji, msg) {
+      const t = document.getElementById('toast');
+      document.getElementById('toastEmoji').textContent = emoji;
+      document.getElementById('toastMsg').textContent = msg;
+      t.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+    }
+
+    /* ── Ripple on CTA button ── */
+    function createRipple(e, btn) {
+      const circle = document.createElement('span');
+      const rect = btn.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      circle.style.cssText = `
+        position:absolute;border-radius:50%;
+        width:${size}px;height:${size}px;
+        left:${e.clientX - rect.left - size/2}px;
+        top:${e.clientY - rect.top - size/2}px;
+        background:rgba(255,255,255,0.25);
+        transform:scale(0);animation:rippleAnim 0.6s linear forwards;
+        pointer-events:none;
+      `;
+      btn.appendChild(circle);
+      circle.addEventListener('animationend', () => circle.remove());
+    }
+
+    /* ── Card ripple ── */
+    function createCardRipple(card) {
+      const flash = document.createElement('div');
+      flash.style.cssText = `
+        position:absolute;inset:0;border-radius:inherit;
+        background:radial-gradient(circle at center,rgba(185,55,157,0.15),transparent 70%);
+        animation:cardFlash 0.5s ease forwards;pointer-events:none;
+      `;
+      const style = document.createElement('style');
+      style.textContent = '@keyframes cardFlash{0%{opacity:0;transform:scale(0.8)}50%{opacity:1;transform:scale(1.02)}100%{opacity:0;transform:scale(1)}}';
+      document.head.appendChild(style);
+      card.appendChild(flash);
+      flash.addEventListener('animationend', () => { flash.remove(); style.remove(); });
+    }
+
+    /* ── Floating petals animation ── */
+    function spawnPetal() {
+      const container = document.getElementById('floralBg');
+      if (!container) return;
+      const petal = document.createElement('div');
+      const size = Math.random() * 10 + 6;
+      const left = Math.random() * 100;
+      const duration = Math.random() * 8 + 8;
+      const delay = Math.random() * 4;
+      const hue = Math.random() > 0.5 ? '#E3A88A' : '#EEDAA5';
+      petal.style.cssText = `
+        position:absolute;
+        width:${size}px;height:${size}px;
+        left:${left}%;bottom:-20px;
+        background:${hue};border-radius:50% 10% 50% 10%;
+        opacity:0;
+        animation:floatPetal ${duration}s ${delay}s linear forwards;
+      `;
+      container.appendChild(petal);
+      petal.addEventListener('animationend', () => petal.remove());
+    }
+
+    /* ── Parallax hero on scroll ── */
+    function handleScroll() {
+      const hero = document.querySelector('.hero');
+      const scroll = window.scrollY;
+      if (hero) {
+        hero.style.backgroundPosition = `center ${scroll * 0.3}px`;
+      }
+    }
+
+    /* ── Intersection Observer for card animations ── */
+    function setupObserver() {
+      const opts = { threshold: 0.15, rootMargin: '0px 0px -40px 0px' };
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.style.opacity = '1';
+            e.target.style.transform = 'translateY(0) scale(1)';
+            obs.unobserve(e.target);
+          }
+        });
+      }, opts);
+      document.querySelectorAll('.garment-card, .trust-card').forEach(c => {
+        c.style.opacity = '0';
+        c.style.transform = 'translateY(20px) scale(0.96)';
+        c.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.34,1.56,0.64,1)';
+        obs.observe(c);
+      });
+    }
+
+    /* ── Init ── */
+    document.addEventListener('DOMContentLoaded', () => {
+      /* Set initial lang class */
+      document.body.classList.add('lang-en');
+
+      /* Splash removal */
+      setTimeout(() => {
+        const splash = document.getElementById('splash');
+        if (splash) {
+          splash.style.opacity = '0';
+          splash.style.transition = 'opacity 0.6s ease';
+          setTimeout(() => { splash.style.display = 'none'; }, 600);
+        }
+      }, 2400);
+
+      /* Start petals after splash */
+      setTimeout(() => {
+        spawnPetal();
+        setInterval(spawnPetal, 2200);
+      }, 3000);
+
+      /* Setup observers */
+      setTimeout(setupObserver, 3000);
+
+      /* Scroll listener */
+      window.addEventListener('scroll', handleScroll, { passive: true });
+
+      /* Keyboard nav - close drawer on Escape */
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeDrawer();
+      });
+
+      /* Prevent body scroll when modal open */
+      document.addEventListener('touchstart', () => {}, { passive: true });
+
+      /* Subtle card hover scale on desktop */
+      document.querySelectorAll('.garment-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          if (!card.classList.contains('selected')) {
+            card.style.transform = 'translateY(-4px) scale(1.01)';
+            card.style.boxShadow = '0 8px 32px rgba(113,30,123,0.15)';
+            card.style.borderColor = 'rgba(185,55,157,0.25)';
+          }
+        });
+        card.addEventListener('mouseleave', () => {
+          if (!card.classList.contains('selected')) {
+            card.style.transform = '';
+            card.style.boxShadow = '';
+            card.style.borderColor = '';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <meta name="theme-color" content="#330C4B"/>
+  <title>Blouse Style — Womens World</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Noto+Sans+Tamil:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    html{height:100%}
+    body{
+      font-family:'Inter','Noto Sans Tamil',sans-serif;
+      background:#FBF3F8;color:#330C4B;
+      min-height:100dvh;overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      display:flex;flex-direction:column;
+    }
+    :root{
+      --dp:#330C4B;--pi:#51017C;--em:#711E7B;
+      --ss:#B9379D;--fw:#E3A88A;--mz:#EEDAA5;
+      --bg:#FBF3F8;--bg2:#F4EAF2;--white:#FFFFFF;
+      --r:16px;--shadow:0 4px 18px rgba(81,1,124,0.10);
+      --ease:cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    /* LANGUAGE */
+    body.lang-ta .en{display:none!important}
+    body.lang-ta .ta{display:block!important}
+    body.lang-en .ta{display:none!important}
+    body.lang-en .en{display:block!important}
+    .ta{display:none}
+
+    /* PAGE ANIMATION */
+    @keyframes pageIn{from{opacity:0;transform:translateX(36px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes pageOut{to{opacity:0;transform:translateX(-36px)}}
+    .page{animation:pageIn 0.4s cubic-bezier(0.25,0.46,0.45,0.94) both}
+
+    /* ── HEADER ── */
+    header{
+      position:sticky;top:0;z-index:200;
+      background:rgba(251,243,248,0.96);
+      backdrop-filter:blur(18px) saturate(1.6);
+      -webkit-backdrop-filter:blur(18px) saturate(1.6);
+      border-bottom:1px solid rgba(113,30,123,0.08);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 14px;height:56px;gap:8px;
+    }
+    .h-back{
+      width:36px;height:36px;border-radius:11px;
+      border:1.5px solid rgba(113,30,123,0.14);background:var(--white);
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;flex-shrink:0;transition:all 0.2s ease;
+      text-decoration:none;
+    }
+    .h-back:active{background:var(--bg2);transform:scale(0.93)}
+    .h-center{flex:1;text-align:center}
+    .h-brand{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:var(--dp);letter-spacing:1.5px}
+    .h-sub{font-size:8.5px;color:var(--em);opacity:0.65;letter-spacing:0.8px;text-transform:uppercase}
+    .lang-toggle{display:flex;align-items:center;background:var(--bg2);border:1px solid rgba(113,30,123,0.13);border-radius:20px;padding:3px;gap:2px;flex-shrink:0}
+    .lang-btn{padding:3px 8px;border-radius:16px;border:none;background:transparent;font-size:10px;font-weight:600;cursor:pointer;color:var(--em);transition:all 0.2s ease;font-family:'Noto Sans Tamil','Inter',sans-serif}
+    .lang-btn.active{background:linear-gradient(135deg,var(--em),var(--ss));color:white;box-shadow:0 2px 8px rgba(113,30,123,0.28)}
+
+    /* ── PROGRESS ── */
+    .progress-track{height:4px;background:rgba(113,30,123,0.09)}
+    .progress-fill{
+      height:100%;
+      background:linear-gradient(90deg,var(--em),var(--ss),var(--fw));
+      background-size:200%;border-radius:0 3px 3px 0;
+      animation:shimmer 2.5s linear infinite;
+      transition:width 0.8s cubic-bezier(0.4,0,0.2,1);
+    }
+    @keyframes shimmer{0%{background-position:200%}100%{background-position:-200%}}
+    .progress-dots{display:flex;justify-content:center;align-items:center;gap:5px;padding:8px 0 2px}
+    .pdot{width:5px;height:5px;border-radius:50%;background:rgba(113,30,123,0.15);transition:all 0.35s ease}
+    .pdot.done{background:var(--em);opacity:0.4}
+    .pdot.active{background:linear-gradient(135deg,var(--em),var(--ss));width:20px;border-radius:4px}
+
+    /* ── MAIN ── */
+    main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:110px}
+
+    /* ── HEADING ── */
+    .heading-wrap{padding:18px 16px 6px}
+    .step-pill{
+      display:inline-flex;align-items:center;gap:5px;
+      font-size:9.5px;font-weight:600;color:var(--ss);
+      letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;
+    }
+    .step-pill::before{content:'';width:14px;height:2px;background:linear-gradient(90deg,var(--fw),var(--ss));border-radius:2px}
+    .h1-en{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:600;color:var(--dp);line-height:1.15;letter-spacing:-0.3px}
+    .h1-ta{font-family:'Noto Sans Tamil',sans-serif;font-size:16px;font-weight:500;color:var(--dp);line-height:1.5}
+    .h-hint{font-size:12.5px;color:var(--em);opacity:0.7;margin-top:5px}
+    .h-hint-ta{font-family:'Noto Sans Tamil',sans-serif;font-size:11px;color:var(--em);opacity:0.7;margin-top:5px}
+
+    /* ── STYLE GRID (3 columns) ── */
+    .style-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:11px;padding:14px 14px 0;
+    }
+
+    /* ── STYLE CARD ── */
+    .style-card{
+      background:var(--white);
+      border-radius:var(--r);
+      border:2px solid rgba(113,30,123,0.07);
+      overflow:hidden;cursor:pointer;
+      box-shadow:var(--shadow);
+      position:relative;
+      transition:all 0.3s var(--ease);
+      animation:cardIn 0.5s var(--ease) both;
+    }
+    .style-card:nth-child(1){animation-delay:0.04s}
+    .style-card:nth-child(2){animation-delay:0.09s}
+    .style-card:nth-child(3){animation-delay:0.14s}
+    .style-card:nth-child(4){animation-delay:0.19s}
+    .style-card:nth-child(5){animation-delay:0.24s}
+    .style-card:nth-child(6){animation-delay:0.29s}
+    @keyframes cardIn{from{opacity:0;transform:translateY(20px) scale(0.93)}to{opacity:1;transform:translateY(0) scale(1)}}
+    .style-card:active{transform:scale(0.95)}
+    .style-card.selected{
+      border-color:var(--ss);
+      box-shadow:0 0 0 3px rgba(185,55,157,0.14),0 6px 28px rgba(113,30,123,0.2);
+      transform:translateY(-3px);
+    }
+
+    /* Card checkmark */
+    .card-check{
+      position:absolute;top:7px;right:7px;z-index:10;
+      width:20px;height:20px;border-radius:50%;
+      background:linear-gradient(135deg,var(--em),var(--ss));
+      color:white;font-size:10px;font-weight:700;
+      display:flex;align-items:center;justify-content:center;
+      opacity:0;transform:scale(0) rotate(-60deg);
+      transition:all 0.35s var(--ease);
+      box-shadow:0 2px 8px rgba(113,30,123,0.4);
+    }
+    .style-card.selected .card-check{opacity:1;transform:scale(1) rotate(0deg)}
+
+    /* Card image */
+    .card-img{width:100%;aspect-ratio:1/1.15;overflow:hidden;position:relative}
+    .card-img svg{width:100%;height:100%;display:block}
+
+    /* Shimmer overlay on select */
+    .card-img::after{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(135deg,rgba(185,55,157,0.1),transparent 60%);
+      opacity:0;transition:opacity 0.3s;pointer-events:none;
+    }
+    .style-card.selected .card-img::after{opacity:1}
+
+    /* Card label */
+    .card-lbl{
+      padding:9px 8px 11px;
+      border-top:1px solid rgba(113,30,123,0.05);
+      transition:background 0.2s;
+    }
+    .style-card.selected .card-lbl{background:rgba(185,55,157,0.04)}
+    .lbl-en{font-family:'Cormorant Garamond',serif;font-size:13.5px;font-weight:600;color:var(--dp);line-height:1.1}
+    .lbl-ta{font-family:'Noto Sans Tamil',sans-serif;font-size:9.5px;color:var(--em);opacity:0.75;margin-top:2px}
+
+    /* ── SELECTION HINT ── */
+    .sel-hint{
+      text-align:center;padding:10px 20px 4px;
+      font-size:11.5px;color:var(--em);opacity:0.55;
+      transition:opacity 0.3s;
+    }
+    .sel-hint.hidden{opacity:0;pointer-events:none}
+
+    /* ── DIVIDER ── */
+    .divider{
+      display:flex;align-items:center;gap:10px;
+      margin:18px 16px 0;
+    }
+    .divider-line{flex:1;height:1px;background:rgba(113,30,123,0.12)}
+    .divider-text{font-size:11px;color:var(--em);opacity:0.5;white-space:nowrap}
+    .divider-text-ta{font-family:'Noto Sans Tamil',sans-serif;font-size:10px;color:var(--em);opacity:0.5;white-space:nowrap}
+
+    /* ── UPLOAD SECTION ── */
+    .upload-section{margin:12px 14px 0}
+    .upload-label{
+      font-family:'Cormorant Garamond',serif;
+      font-size:17px;font-weight:600;color:var(--dp);
+      margin-bottom:3px;
+    }
+    .upload-label-ta{font-family:'Noto Sans Tamil',sans-serif;font-size:13px;color:var(--dp);margin-bottom:3px}
+    .upload-sub{font-size:11.5px;color:var(--em);opacity:0.65;margin-bottom:10px}
+    .upload-sub-ta{font-family:'Noto Sans Tamil',sans-serif;font-size:10.5px;color:var(--em);opacity:0.65;margin-bottom:10px}
+
+    /* Upload zone */
+    .upload-zone{
+      border:2px dashed rgba(185,55,157,0.3);
+      border-radius:var(--r);
+      background:rgba(255,255,255,0.7);
+      padding:28px 20px 22px;
+      text-align:center;cursor:pointer;
+      position:relative;overflow:hidden;
+      transition:all 0.25s ease;
+    }
+    .upload-zone:hover,.upload-zone.drag-over{
+      border-color:var(--ss);background:rgba(185,55,157,0.05);
+    }
+    .upload-zone:active{transform:scale(0.99)}
+    .upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+
+    /* Cloud icon animated */
+    .cloud-icon{
+      display:flex;justify-content:center;margin-bottom:14px;
+    }
+    .cloud-svg{animation:cloudBob 3s ease-in-out infinite}
+    @keyframes cloudBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+    .upload-title-en{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--dp);margin-bottom:3px}
+    .upload-title-ta{font-family:'Noto Sans Tamil',sans-serif;font-size:13px;font-weight:500;color:var(--dp);margin-bottom:3px}
+    .upload-subtitle-en{font-size:12.5px;color:var(--em);opacity:0.65}
+    .upload-subtitle-ta{font-family:'Noto Sans Tamil',sans-serif;font-size:11px;color:var(--em);opacity:0.65}
+    .upload-hint-badge{
+      display:inline-flex;align-items:center;gap:5px;
+      margin-top:12px;
+      font-size:10px;color:var(--em);opacity:0.5;
+      background:rgba(113,30,123,0.05);border-radius:8px;padding:5px 10px;
+    }
+
+    /* Preview strip */
+    .preview-strip{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .prev-item{position:relative;flex-shrink:0;animation:thumbPop 0.35s var(--ease) both}
+    @keyframes thumbPop{from{opacity:0;transform:scale(0.6)}to{opacity:1;transform:scale(1)}}
+    .prev-img{width:64px;height:64px;border-radius:12px;object-fit:cover;border:2px solid rgba(185,55,157,0.3);display:block}
+    .prev-rm{
+      position:absolute;top:-5px;right:-5px;
+      width:19px;height:19px;border-radius:50%;
+      background:#DC2626;color:white;border:none;
+      font-size:10px;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 2px 6px rgba(220,38,38,0.4);
+    }
+    .add-btn{
+      width:64px;height:64px;border-radius:12px;
+      border:1.5px dashed rgba(185,55,157,0.3);
+      background:rgba(185,55,157,0.04);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:2px;cursor:pointer;position:relative;flex-shrink:0;
+    }
+    .add-btn input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+    .add-btn-icon{font-size:20px;color:var(--ss)}
+    .add-btn-txt{font-size:8px;font-weight:600;color:var(--ss);font-family:'Inter',sans-serif}
+
+    /* ── BOTTOM NAV ── */
+    .bottom-nav{
+      position:fixed;bottom:0;left:0;right:0;z-index:100;
+      background:rgba(251,243,248,0.97);
+      backdrop-filter:blur(20px) saturate(1.5);
+      -webkit-backdrop-filter:blur(20px) saturate(1.5);
+      border-top:1px solid rgba(113,30,123,0.08);
+      padding:11px 14px;
+      display:flex;gap:11px;align-items:center;
+      padding-bottom:calc(11px + env(safe-area-inset-bottom,0px));
+    }
+    .btn-back{
+      flex:1;padding:14px 8px;
+      border:1.5px solid rgba(113,30,123,0.18);background:var(--white);
+      border-radius:15px;color:var(--dp);font-size:14px;font-weight:600;
+      cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;
+      transition:all 0.2s ease;font-family:'Inter','Noto Sans Tamil',sans-serif;
+    }
+    .btn-back:active{background:var(--bg2);transform:scale(0.97)}
+    .btn-next{
+      flex:2.4;padding:14px 8px;border:none;border-radius:15px;
+      background:linear-gradient(135deg,var(--em),var(--ss));
+      color:white;font-size:15px;font-weight:600;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;gap:8px;
+      transition:all 0.25s ease;
+      box-shadow:0 6px 22px rgba(113,30,123,0.28);
+      position:relative;overflow:hidden;
+      font-family:'Inter','Noto Sans Tamil',sans-serif;
+    }
+    .btn-next:disabled{background:linear-gradient(135deg,rgba(113,30,123,0.3),rgba(185,55,157,0.3));box-shadow:none;cursor:not-allowed}
+    .btn-next:not(:disabled):active{transform:scale(0.97)}
+    .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,0.25);transform:scale(0);animation:rpl 0.55s linear;pointer-events:none}
+    @keyframes rpl{to{transform:scale(4);opacity:0}}
+
+    /* ── TOAST ── */
+    #toast{
+      position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(40px);
+      z-index:9999;background:linear-gradient(135deg,#330C4B,#51017C);
+      color:white;border-radius:13px;padding:9px 16px;font-size:12.5px;font-weight:500;
+      white-space:nowrap;box-shadow:0 6px 26px rgba(51,12,75,0.38);
+      display:flex;align-items:center;gap:7px;
+      transition:transform 0.4s var(--ease);pointer-events:none;
+      font-family:'Noto Sans Tamil','Inter',sans-serif;
+    }
+    #toast.show{transform:translateX(-50%) translateY(0)}
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar{width:3px}
+    ::-webkit-scrollbar-thumb{background:rgba(113,30,123,0.22);border-radius:3px}
+  </style>
+</head>
+<body class="lang-en">
+
+<!-- ══════ HEADER ══════ -->
+<header>
+  <a class="h-back" href="choose-garment.html" aria-label="Back">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#330C4B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12L6 8l4-4"/></svg>
+  </a>
+  <div class="h-center">
+    <div class="h-brand">WOMENS WORLD</div>
+    <div class="h-sub en">Blouse Customisation</div>
+    <div class="h-sub ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:7.5px;">பிளவுஸ் தனிப்பயனாக்கல்</div>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')" aria-pressed="true">EN</button>
+    <button class="lang-btn" id="btn-ta" onclick="setLang('ta')" aria-pressed="false" style="font-family:'Noto Sans Tamil',sans-serif">தமிழ்</button>
+  </div>
+</header>
+
+<!-- ══════ PROGRESS ══════ -->
+<div class="progress-track">
+  <div class="progress-fill" style="width:22%"></div>
+</div>
+<div class="progress-dots" aria-hidden="true">
+  <div class="pdot done"></div>
+  <div class="pdot active"></div>
+  <div class="pdot"></div>
+  <div class="pdot"></div>
+  <div class="pdot"></div>
+  <div class="pdot"></div>
+  <div class="pdot"></div>
+  <div class="pdot"></div>
+</div>
+
+<!-- ══════ MAIN ══════ -->
+<main class="page">
+
+  <!-- Heading -->
+  <div class="heading-wrap">
+    <div class="step-pill en">Blouse · Step 1 of 5</div>
+    <div class="step-pill ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:9px;">பிளவுஸ் · படி 1 / 5</div>
+    <h1 class="h1-en en">Choose Blouse Style</h1>
+    <h1 class="h1-ta ta">பிளவுஸ் வடிவத்தை தேர்ந்தெடுக்கவும்</h1>
+    <div class="h-hint en">Select the cut that suits your style</div>
+    <div class="h-hint-ta ta">உங்கள் ஸ்டைலுக்கு ஏற்ற வடிவை தேர்வு செய்யுங்கள்</div>
+  </div>
+
+  <!-- ── 3×2 STYLE GRID ── -->
+  <div class="style-grid" id="styleGrid">
+
+    <!-- 1. NORMAL CUT -->
+    <div class="style-card" onclick="selectStyle('normal',this)" role="button" tabindex="0" aria-label="Normal Cut" onkeydown="if(event.key==='Enter'||event.key===' ')selectStyle('normal',this)">
+      <div class="card-check">✓</div>
+      <div class="card-img">
+        <svg viewBox="0 0 120 138" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="nc-bg" cx="40%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#7B1F7F"/>
+              <stop offset="100%" stop-color="#2A0040"/>
+            </radialGradient>
+            <linearGradient id="nc-blouse" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#A835A0"/>
+              <stop offset="100%" stop-color="#60107A"/>
+            </linearGradient>
+            <linearGradient id="nc-sheen" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.22)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </linearGradient>
+            <linearGradient id="gold1" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#C9940A"/>
+              <stop offset="50%" stop-color="#EEDAA5"/>
+              <stop offset="100%" stop-color="#C9940A"/>
+            </linearGradient>
+          </defs>
+          <rect width="120" height="138" fill="url(#nc-bg)"/>
+          <!-- Fabric shimmer lines -->
+          <line x1="0" y1="25" x2="120" y2="25" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="55" x2="120" y2="55" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="85" x2="120" y2="85" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="115" x2="120" y2="115" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+          <!-- Mannequin stand hint -->
+          <rect x="55" y="118" width="10" height="16" rx="3" fill="rgba(255,255,255,0.12)"/>
+          <rect x="46" y="132" width="28" height="4" rx="2" fill="rgba(255,255,255,0.15)"/>
+
+          <!-- BLOUSE BODY - normal straight cut -->
+          <path d="M28,32 Q40,24 60,22 Q80,24 92,32 L96,110 L24,110Z" fill="url(#nc-blouse)"/>
+          <path d="M28,32 Q40,24 60,22 Q80,24 92,32 L96,110 L24,110Z" fill="url(#nc-sheen)"/>
+
+          <!-- Short sleeves -->
+          <path d="M28,32 Q16,38 12,58 Q11,68 16,70 L22,68 Q20,58 25,44Z" fill="url(#nc-blouse)" opacity="0.95"/>
+          <path d="M92,32 Q104,38 108,58 Q109,68 104,70 L98,68 Q100,58 95,44Z" fill="url(#nc-blouse)" opacity="0.95"/>
+
+          <!-- Round neckline -->
+          <path d="M42,30 Q60,42 78,30" fill="none" stroke="url(#gold1)" stroke-width="2" stroke-linecap="round"/>
+          <!-- Inner neck hint -->
+          <ellipse cx="60" cy="26" rx="16" ry="8" fill="#2A0040" opacity="0.7"/>
+          <ellipse cx="60" cy="26" rx="16" ry="8" fill="none" stroke="url(#gold1)" stroke-width="1.5"/>
+
+          <!-- Hem gold border -->
+          <line x1="25" y1="107" x2="95" y2="107" stroke="url(#gold1)" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="27" y1="110" x2="93" y2="110" stroke="rgba(238,218,165,0.3)" stroke-width="1" stroke-linecap="round"/>
+
+          <!-- Sleeve borders -->
+          <path d="M12,66 Q17,70 22,67" fill="none" stroke="url(#gold1)" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M108,66 Q103,70 98,67" fill="none" stroke="url(#gold1)" stroke-width="1.8" stroke-linecap="round"/>
+
+          <!-- Center seam - straight clean lines showing normal cut -->
+          <line x1="60" y1="42" x2="60" y2="106" stroke="rgba(238,218,165,0.15)" stroke-width="1" stroke-dasharray="4,3"/>
+
+          <!-- Simple embroidery center -->
+          <circle cx="60" cy="70" r="7" fill="none" stroke="rgba(238,218,165,0.3)" stroke-width="1.2"/>
+          <circle cx="60" cy="70" r="3" fill="rgba(238,218,165,0.2)"/>
+          <path d="M60,63 Q62,66.5 60,70 Q58,66.5 60,63Z" fill="rgba(238,218,165,0.4)"/>
+          <path d="M67,70 Q63.5,72 60,70 Q63.5,68 67,70Z" fill="rgba(238,218,165,0.4)"/>
+          <path d="M60,77 Q58,73.5 60,70 Q62,73.5 60,77Z" fill="rgba(238,218,165,0.4)"/>
+          <path d="M53,70 Q56.5,68 60,70 Q56.5,72 53,70Z" fill="rgba(238,218,165,0.4)"/>
+
+          <!-- Sheen diagonal -->
+          <path d="M35,24 Q65,55 80,108" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="14"/>
+          <!-- Sparkle -->
+          <path d="M96,28 L97.5,24 L99,28 L97.5,32Z" fill="rgba(238,218,165,0.55)"/>
+          <circle cx="15" cy="90" r="1.5" fill="rgba(238,218,165,0.3)"/>
+        </svg>
+      </div>
+      <div class="card-lbl">
+        <div class="lbl-en en">Normal Cut</div>
+        <div class="lbl-ta en">சாதாரண கட்</div>
+        <div class="lbl-en ta" style="display:none;font-family:'Cormorant Garamond',serif;font-size:13.5px;font-weight:600;color:var(--dp)">Normal Cut</div>
+        <div class="lbl-ta ta">சாதாரண கட்</div>
+      </div>
+    </div>
+
+    <!-- 2. PRINCESS CUT -->
+    <div class="style-card" onclick="selectStyle('princess',this)" role="button" tabindex="0" aria-label="Princess Cut" onkeydown="if(event.key==='Enter'||event.key===' ')selectStyle('princess',this)">
+      <div class="card-check">✓</div>
+      <div class="card-img">
+        <svg viewBox="0 0 120 138" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="pc-bg" cx="45%" cy="25%" r="75%">
+              <stop offset="0%" stop-color="#1B7A6B"/>
+              <stop offset="100%" stop-color="#063A2E"/>
+            </radialGradient>
+            <linearGradient id="pc-body" x1="0" y1="0" x2="0.5" y2="1">
+              <stop offset="0%" stop-color="#2BA898"/>
+              <stop offset="100%" stop-color="#0A4A3C"/>
+            </linearGradient>
+            <linearGradient id="pc-sheen" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.2)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </linearGradient>
+            <linearGradient id="gold2" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#C9940A"/>
+              <stop offset="50%" stop-color="#EEDAA5"/>
+              <stop offset="100%" stop-color="#C9940A"/>
+            </linearGradient>
+          </defs>
+          <rect width="120" height="138" fill="url(#pc-bg)"/>
+          <line x1="0" y1="30" x2="120" y2="30" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="70" x2="120" y2="70" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="110" x2="120" y2="110" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+          <!-- Stand -->
+          <rect x="55" y="118" width="10" height="16" rx="3" fill="rgba(255,255,255,0.10)"/>
+          <rect x="46" y="132" width="28" height="4" rx="2" fill="rgba(255,255,255,0.13)"/>
+
+          <!-- PRINCESS CUT BLOUSE - fitted with princess seams -->
+          <!-- Center panel (slightly lighter) -->
+          <path d="M44,32 L44,108 L76,108 L76,32 Q68,28 60,27 Q52,28 44,32Z" fill="url(#pc-body)" opacity="1.0"/>
+          <!-- Left side panel -->
+          <path d="M28,38 Q36,32 44,32 L44,108 L26,108Z" fill="url(#pc-body)" opacity="0.9"/>
+          <!-- Right side panel -->
+          <path d="M92,38 Q84,32 76,32 L76,108 L94,108Z" fill="url(#pc-body)" opacity="0.9"/>
+          <!-- Sheen -->
+          <path d="M28,38 Q36,32 44,32 L44,108 L26,108Z" fill="url(#pc-sheen)"/>
+          <path d="M44,32 L44,108 L76,108 L76,32 Q68,28 60,27 Q52,28 44,32Z" fill="url(#pc-sheen)"/>
+
+          <!-- Princess seam lines (the distinctive feature) -->
+          <path d="M44,32 Q43,60 42,108" fill="none" stroke="rgba(238,218,165,0.55)" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M76,32 Q77,60 78,108" fill="none" stroke="rgba(238,218,165,0.55)" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Seam dots marker -->
+          <circle cx="43.5" cy="32" r="2" fill="rgba(238,218,165,0.5)"/>
+          <circle cx="76.5" cy="32" r="2" fill="rgba(238,218,165,0.5)"/>
+
+          <!-- Sleeves -->
+          <path d="M28,38 Q16,44 13,62 Q12,72 17,74 L23,72 Q21,62 26,48Z" fill="url(#pc-body)" opacity="0.9"/>
+          <path d="M92,38 Q104,44 107,62 Q108,72 103,74 L97,72 Q99,62 94,48Z" fill="url(#pc-body)" opacity="0.9"/>
+
+          <!-- V neckline - princess cut often has V or sweetheart -->
+          <path d="M44,32 Q60,55 76,32" fill="none" stroke="url(#gold2)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M46,34 Q60,55 74,34" fill="none" stroke="rgba(238,218,165,0.35)" stroke-width="1" stroke-linecap="round"/>
+          <!-- V inner -->
+          <path d="M48,30 Q60,50 72,30" fill="#063A2E" opacity="0.7"/>
+
+          <!-- Neckline embroidery -->
+          <circle cx="60" cy="50" r="2" fill="rgba(238,218,165,0.5)"/>
+          <circle cx="53" cy="42" r="1.5" fill="rgba(238,218,165,0.4)"/>
+          <circle cx="67" cy="42" r="1.5" fill="rgba(238,218,165,0.4)"/>
+
+          <!-- Hem border -->
+          <line x1="26" y1="105" x2="94" y2="105" stroke="url(#gold2)" stroke-width="2.5" stroke-linecap="round"/>
+
+          <!-- Sleeve borders -->
+          <path d="M13,70 Q18,74 23,71" fill="none" stroke="url(#gold2)" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M107,70 Q102,74 97,71" fill="none" stroke="url(#gold2)" stroke-width="1.8" stroke-linecap="round"/>
+
+          <!-- Waist shaping hint (princess fit) -->
+          <path d="M26,72 Q24,82 26,90" fill="none" stroke="rgba(238,218,165,0.15)" stroke-width="1"/>
+          <path d="M94,72 Q96,82 94,90" fill="none" stroke="rgba(238,218,165,0.15)" stroke-width="1"/>
+
+          <!-- Sheen -->
+          <path d="M38,28 Q65,60 72,108" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="12"/>
+          <path d="M96,30 L97.5,26 L99,30 L97.5,34Z" fill="rgba(238,218,165,0.5)"/>
+          <circle cx="14" cy="85" r="1.5" fill="rgba(238,218,165,0.25)"/>
+        </svg>
+      </div>
+      <div class="card-lbl">
+        <div class="lbl-en en">Princess Cut</div>
+        <div class="lbl-ta en">பிரின்சஸ் கட்</div>
+        <div class="lbl-en ta" style="display:none;font-family:'Cormorant Garamond',serif;font-size:13.5px;font-weight:600;color:var(--dp)">Princess Cut</div>
+        <div class="lbl-ta ta">பிரின்சஸ் கட்</div>
+      </div>
+    </div>
+
+    <!-- 3. PANEL CUT -->
+    <div class="style-card" onclick="selectStyle('panel',this)" role="button" tabindex="0" aria-label="Panel Cut" onkeydown="if(event.key==='Enter'||event.key===' ')selectStyle('panel',this)">
+      <div class="card-check">✓</div>
+      <div class="card-img">
+        <svg viewBox="0 0 120 138" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="pan-bg" cx="40%" cy="28%" r="72%">
+              <stop offset="0%" stop-color="#1A237E"/>
+              <stop offset="100%" stop-color="#0A0A3A"/>
+            </radialGradient>
+            <linearGradient id="pan-p1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#283593"/>
+              <stop offset="100%" stop-color="#151570"/>
+            </linearGradient>
+            <linearGradient id="pan-p2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3949AB"/>
+              <stop offset="100%" stop-color="#1A237E"/>
+            </linearGradient>
+            <linearGradient id="pan-sheen" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </linearGradient>
+            <linearGradient id="gold3" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#C9940A"/>
+              <stop offset="50%" stop-color="#EEDAA5"/>
+              <stop offset="100%" stop-color="#C9940A"/>
+            </linearGradient>
+          </defs>
+          <rect width="120" height="138" fill="url(#pan-bg)"/>
+          <line x1="0" y1="35" x2="120" y2="35" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="80" x2="120" y2="80" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+          <!-- Stand -->
+          <rect x="55" y="118" width="10" height="16" rx="3" fill="rgba(255,255,255,0.10)"/>
+          <rect x="46" y="132" width="28" height="4" rx="2" fill="rgba(255,255,255,0.12)"/>
+
+          <!-- PANEL CUT BLOUSE - distinct vertical panels with different shades -->
+          <!-- Full blouse shape first -->
+          <path d="M28,34 Q40,26 60,24 Q80,26 92,34 L96,110 L24,110Z" fill="url(#pan-p1)"/>
+
+          <!-- Left panel (different shade) -->
+          <path d="M28,34 Q40,26 46,26 L46,110 L24,110Z" fill="url(#pan-p2)" opacity="0.9"/>
+          <!-- Right panel (different shade) -->
+          <path d="M92,34 Q80,26 74,26 L74,110 L96,110Z" fill="url(#pan-p2)" opacity="0.9"/>
+
+          <!-- Sheen layers -->
+          <path d="M28,34 Q40,26 60,24 Q80,26 92,34 L96,110 L24,110Z" fill="url(#pan-sheen)"/>
+
+          <!-- Panel dividing gold lines (THE feature of panel cut) -->
+          <line x1="46" y1="26" x2="46" y2="110" stroke="url(#gold3)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="74" y1="26" x2="74" y2="110" stroke="url(#gold3)" stroke-width="2" stroke-linecap="round"/>
+
+          <!-- Panel embroidery dots along the lines -->
+          <circle cx="46" cy="45" r="2" fill="rgba(238,218,165,0.6)"/>
+          <circle cx="46" cy="65" r="2" fill="rgba(238,218,165,0.5)"/>
+          <circle cx="46" cy="85" r="2" fill="rgba(238,218,165,0.5)"/>
+          <circle cx="74" cy="45" r="2" fill="rgba(238,218,165,0.6)"/>
+          <circle cx="74" cy="65" r="2" fill="rgba(238,218,165,0.5)"/>
+          <circle cx="74" cy="85" r="2" fill="rgba(238,218,165,0.5)"/>
+
+          <!-- Sleeves -->
+          <path d="M28,34 Q15,40 11,60 Q10,70 15,72 L21,70 Q19,59 24,46Z" fill="url(#pan-p1)"/>
+          <path d="M92,34 Q105,40 109,60 Q110,70 105,72 L99,70 Q101,59 96,46Z" fill="url(#pan-p1)"/>
+
+          <!-- Square / boat neckline -->
+          <path d="M44,28 L44,32 L76,32 L76,28" fill="none" stroke="url(#gold3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Inner cutout -->
+          <rect x="44" y="20" width="32" height="12" rx="1" fill="#0A0A3A" opacity="0.75"/>
+          <rect x="44" y="20" width="32" height="12" rx="1" fill="none" stroke="url(#gold3)" stroke-width="1.5"/>
+
+          <!-- Center panel embroidery motif -->
+          <path d="M56,68 Q60,62 64,68 Q60,74 56,68Z" fill="rgba(238,218,165,0.3)"/>
+          <circle cx="60" cy="68" r="2" fill="rgba(238,218,165,0.4)"/>
+
+          <!-- Hem border -->
+          <line x1="25" y1="107" x2="95" y2="107" stroke="url(#gold3)" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Sleeve border -->
+          <path d="M11,68 Q16,72 21,69" fill="none" stroke="url(#gold3)" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M109,68 Q104,72 99,69" fill="none" stroke="url(#gold3)" stroke-width="1.8" stroke-linecap="round"/>
+
+          <!-- Sheen -->
+          <path d="M34,26 Q62,58 70,110" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="12"/>
+          <path d="M98,26 L99.5,22 L101,26 L99.5,30Z" fill="rgba(238,218,165,0.5)"/>
+        </svg>
+      </div>
+      <div class="card-lbl">
+        <div class="lbl-en en">Panel Cut</div>
+        <div class="lbl-ta en">பேனல் கட்</div>
+        <div class="lbl-en ta" style="display:none;font-family:'Cormorant Garamond',serif;font-size:13.5px;font-weight:600;color:var(--dp)">Panel Cut</div>
+        <div class="lbl-ta ta">பேனல் கட்</div>
+      </div>
+    </div>
+
+    <!-- 4. HIGH NECK -->
+    <div class="style-card" onclick="selectStyle('highneck',this)" role="button" tabindex="0" aria-label="High Neck" onkeydown="if(event.key==='Enter'||event.key===' ')selectStyle('highneck',this)">
+      <div class="card-check">✓</div>
+      <div class="card-img">
+        <svg viewBox="0 0 120 138" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="hn-bg" cx="42%" cy="26%" r="74%">
+              <stop offset="0%" stop-color="#7B1515"/>
+              <stop offset="100%" stop-color="#330505"/>
+            </radialGradient>
+            <linearGradient id="hn-body" x1="0" y1="0" x2="0.4" y2="1">
+              <stop offset="0%" stop-color="#A01A1A"/>
+              <stop offset="100%" stop-color="#5A0A0A"/>
+            </linearGradient>
+            <linearGradient id="hn-collar" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#B52020"/>
+              <stop offset="100%" stop-color="#8B1515"/>
+            </linearGradient>
+            <linearGradient id="hn-sheen" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.19)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </linearGradient>
+            <linearGradient id="gold4" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#C9940A"/>
+              <stop offset="50%" stop-color="#EEDAA5"/>
+              <stop offset="100%" stop-color="#C9940A"/>
+            </linearGradient>
+          </defs>
+          <rect width="120" height="138" fill="url(#hn-bg)"/>
+          <line x1="0" y1="30" x2="120" y2="30" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="75" x2="120" y2="75" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+          <!-- Stand -->
+          <rect x="55" y="118" width="10" height="16" rx="3" fill="rgba(255,255,255,0.10)"/>
+          <rect x="46" y="132" width="28" height="4" rx="2" fill="rgba(255,255,255,0.12)"/>
+
+          <!-- BLOUSE BODY -->
+          <path d="M28,46 Q40,36 60,34 Q80,36 92,46 L96,112 L24,112Z" fill="url(#hn-body)"/>
+          <path d="M28,46 Q40,36 60,34 Q80,36 92,46 L96,112 L24,112Z" fill="url(#hn-sheen)"/>
+
+          <!-- 3/4 sleeves -->
+          <path d="M28,46 Q16,52 12,78 Q11,90 17,92 L23,90 Q21,77 26,58Z" fill="url(#hn-body)" opacity="0.95"/>
+          <path d="M92,46 Q104,52 108,78 Q109,90 103,92 L97,90 Q99,77 94,58Z" fill="url(#hn-body)" opacity="0.95"/>
+
+          <!-- HIGH NECK COLLAR (the key feature!) -->
+          <!-- Neck tube going up from blouse -->
+          <path d="M46,34 Q46,18 60,16 Q74,18 74,34 L74,46 Q68,40 60,38 Q52,40 46,46Z" fill="url(#hn-collar)"/>
+          <path d="M46,34 Q46,18 60,16 Q74,18 74,34 L74,46 Q68,40 60,38 Q52,40 46,46Z" fill="url(#hn-sheen)" opacity="0.7"/>
+
+          <!-- Collar top trim -->
+          <path d="M46,18 Q60,12 74,18" fill="none" stroke="url(#gold4)" stroke-width="2" stroke-linecap="round"/>
+          <!-- Collar bottom join -->
+          <path d="M46,34 Q60,42 74,34" fill="none" stroke="url(#gold4)" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Collar side seams -->
+          <line x1="46" y1="18" x2="46" y2="34" stroke="url(#gold4)" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="74" y1="18" x2="74" y2="34" stroke="url(#gold4)" stroke-width="1.2" stroke-linecap="round"/>
+          <!-- Collar button -->
+          <circle cx="60" cy="17" r="2.5" fill="rgba(238,218,165,0.7)"/>
+          <circle cx="60" cy="25" r="1.8" fill="rgba(238,218,165,0.5)"/>
+
+          <!-- Collar decorative embroidery -->
+          <path d="M49,22 Q60,19 71,22" fill="none" stroke="rgba(238,218,165,0.4)" stroke-width="0.8"/>
+          <path d="M50,27 Q60,24 70,27" fill="none" stroke="rgba(238,218,165,0.3)" stroke-width="0.8"/>
+
+          <!-- Body embroidery -->
+          <g opacity="0.35">
+            <circle cx="60" cy="75" r="7" fill="none" stroke="url(#gold4)" stroke-width="1.2"/>
+            <circle cx="60" cy="75" r="3" fill="rgba(238,218,165,0.25)"/>
+            <path d="M60,68 Q62,71.5 60,75 Q58,71.5 60,68Z" fill="#EEDAA5"/>
+            <path d="M67,75 Q63.5,77 60,75 Q63.5,73 67,75Z" fill="#EEDAA5"/>
+            <path d="M60,82 Q58,78.5 60,75 Q62,78.5 60,82Z" fill="#EEDAA5"/>
+            <path d="M53,75 Q56.5,73 60,75 Q56.5,77 53,75Z" fill="#EEDAA5"/>
+          </g>
+
+          <!-- Hem border -->
+          <line x1="25" y1="109" x2="95" y2="109" stroke="url(#gold4)" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Sleeve border -->
+          <path d="M12,88 Q17,92 22,89" fill="none" stroke="url(#gold4)" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M108,88 Q103,92 98,89" fill="none" stroke="url(#gold4)" stroke-width="1.8" stroke-linecap="round"/>
+
+          <!-- Sheen -->
+          <path d="M36,36 Q62,70 70,112" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="12"/>
+          <path d="M97,35 L98.5,31 L100,35 L98.5,39Z" fill="rgba(238,218,165,0.5)"/>
+          <circle cx="13" cy="62" r="1.5" fill="rgba(238,218,165,0.25)"/>
+        </svg>
+      </div>
+      <div class="card-lbl">
+        <div class="lbl-en en">High Neck</div>
+        <div class="lbl-ta en">உயர் கழுத்து</div>
+        <div class="lbl-en ta" style="display:none;font-family:'Cormorant Garamond',serif;font-size:13.5px;font-weight:600;color:var(--dp)">High Neck</div>
+        <div class="lbl-ta ta">உயர் கழுத்து</div>
+      </div>
+    </div>
+
+    <!-- 5. BOAT NECK -->
+    <div class="style-card" onclick="selectStyle('boatneck',this)" role="button" tabindex="0" aria-label="Boat Neck" onkeydown="if(event.key==='Enter'||event.key===' ')selectStyle('boatneck',this)">
+      <div class="card-check">✓</div>
+      <div class="card-img">
+        <svg viewBox="0 0 120 138" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="bn-bg" cx="38%" cy="28%" r="70%">
+              <stop offset="0%" stop-color="#5B6BBF"/>
+              <stop offset="100%" stop-color="#1A1A5A"/>
+            </radialGradient>
+            <linearGradient id="bn-body" x1="0" y1="0" x2="0.3" y2="1">
+              <stop offset="0%" stop-color="#6B7CC5"/>
+              <stop offset="100%" stop-color="#252575"/>
+            </linearGradient>
+            <linearGradient id="bn-sheen" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.20)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </linearGradient>
+            <linearGradient id="gold5" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#C9940A"/>
+              <stop offset="50%" stop-color="#EEDAA5"/>
+              <stop offset="100%" stop-color="#C9940A"/>
+            </linearGradient>
+          </defs>
+          <rect width="120" height="138" fill="url(#bn-bg)"/>
+          <line x1="0" y1="35" x2="120" y2="35" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="80" x2="120" y2="80" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+          <!-- Stand -->
+          <rect x="55" y="118" width="10" height="16" rx="3" fill="rgba(255,255,255,0.10)"/>
+          <rect x="46" y="132" width="28" height="4" rx="2" fill="rgba(255,255,255,0.12)"/>
+
+          <!-- BLOUSE BODY -->
+          <path d="M20,36 Q38,30 60,28 Q82,30 100,36 L98,110 L22,110Z" fill="url(#bn-body)"/>
+          <path d="M20,36 Q38,30 60,28 Q82,30 100,36 L98,110 L22,110Z" fill="url(#bn-sheen)"/>
+
+          <!-- Sleeves are minimal - boat neck often shows more shoulder -->
+          <path d="M20,36 Q10,40 8,56 Q7,64 12,66 L18,64 Q16,55 20,44Z" fill="url(#bn-body)" opacity="0.9"/>
+          <path d="M100,36 Q110,40 112,56 Q113,64 108,66 L102,64 Q104,55 100,44Z" fill="url(#bn-body)" opacity="0.9"/>
+
+          <!-- BOAT NECK (the key feature - wide horizontal neckline) -->
+          <!-- The wide cutout -->
+          <path d="M20,36 L20,32 Q38,24 60,22 Q82,24 100,32 L100,36 Q82,30 60,28 Q38,30 20,36Z" fill="#1A1A5A" opacity="0.8"/>
+
+          <!-- The boat neck cut line (wide horizontal) -->
+          <line x1="20" y1="36" x2="100" y2="36" stroke="url(#gold5)" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Second thin line for depth -->
+          <line x1="22" y1="39" x2="98" y2="39" stroke="rgba(238,218,165,0.25)" stroke-width="1" stroke-linecap="round"/>
+
+          <!-- Boat neck embroidery border detail -->
+          <path d="M20,36 Q60,31 100,36" fill="none" stroke="rgba(238,218,165,0.2)" stroke-width="0.8"/>
+
+          <!-- Shoulder accent dots -->
+          <circle cx="22" cy="36" r="2.5" fill="rgba(238,218,165,0.65)"/>
+          <circle cx="98" cy="36" r="2.5" fill="rgba(238,218,165,0.65)"/>
+          <circle cx="38" cy="33" r="1.5" fill="rgba(238,218,165,0.4)"/>
+          <circle cx="82" cy="33" r="1.5" fill="rgba(238,218,165,0.4)"/>
+          <circle cx="60" cy="31" r="1.8" fill="rgba(238,218,165,0.45)"/>
+
+          <!-- Body embroidery -->
+          <g opacity="0.35">
+            <circle cx="60" cy="73" r="8" fill="none" stroke="url(#gold5)" stroke-width="1.3"/>
+            <circle cx="60" cy="73" r="3.5" fill="rgba(238,218,165,0.2)"/>
+            <path d="M60,65 Q62,69 60,73 Q58,69 60,65Z" fill="#EEDAA5"/>
+            <path d="M68,73 Q64,75 60,73 Q64,71 68,73Z" fill="#EEDAA5"/>
+            <path d="M60,81 Q58,77 60,73 Q62,77 60,81Z" fill="#EEDAA5"/>
+            <path d="M52,73 Q56,71 60,73 Q56,75 52,73Z" fill="#EEDAA5"/>
+          </g>
+
+          <!-- Side embroidery -->
+          <g opacity="0.25">
+            <circle cx="35" cy="73" r="5" fill="none" stroke="url(#gold5)" stroke-width="1"/>
+            <circle cx="85" cy="73" r="5" fill="none" stroke="url(#gold5)" stroke-width="1"/>
+          </g>
+
+          <!-- Hem border -->
+          <line x1="23" y1="107" x2="97" y2="107" stroke="url(#gold5)" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Sleeve border -->
+          <path d="M8,62 Q13,66 18,63" fill="none" stroke="url(#gold5)" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M112,62 Q107,66 102,63" fill="none" stroke="url(#gold5)" stroke-width="1.8" stroke-linecap="round"/>
+
+          <!-- Sheen -->
+          <path d="M30,30 Q62,65 65,110" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="12"/>
+          <path d="M105,30 L106.5,26 L108,30 L106.5,34Z" fill="rgba(238,218,165,0.5)"/>
+          <circle cx="10" cy="90" r="1.5" fill="rgba(238,218,165,0.25)"/>
+        </svg>
+      </div>
+      <div class="card-lbl">
+        <div class="lbl-en en">Boat Neck</div>
+        <div class="lbl-ta en">போட் நெக்</div>
+        <div class="lbl-en ta" style="display:none;font-family:'Cormorant Garamond',serif;font-size:13.5px;font-weight:600;color:var(--dp)">Boat Neck</div>
+        <div class="lbl-ta ta">போட் நெக்</div>
+      </div>
+    </div>
+
+    <!-- 6. CUSTOM -->
+    <div class="style-card" onclick="selectStyle('custom',this)" role="button" tabindex="0" aria-label="Custom" onkeydown="if(event.key==='Enter'||event.key===' ')selectStyle('custom',this)">
+      <div class="card-check">✓</div>
+      <div class="card-img">
+        <svg viewBox="0 0 120 138" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="cu-bg" cx="50%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="#5B2C7A"/>
+              <stop offset="55%" stop-color="#330C4B"/>
+              <stop offset="100%" stop-color="#1A0028"/>
+            </radialGradient>
+            <linearGradient id="cu-body" x1="0" y1="0" x2="0.5" y2="1">
+              <stop offset="0%" stop-color="rgba(185,55,157,0.5)"/>
+              <stop offset="100%" stop-color="rgba(81,1,124,0.4)"/>
+            </linearGradient>
+            <linearGradient id="cu-stroke" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#B9379D"/>
+              <stop offset="100%" stop-color="#711E7B"/>
+            </linearGradient>
+            <linearGradient id="gold6" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#C9940A"/>
+              <stop offset="50%" stop-color="#EEDAA5"/>
+              <stop offset="100%" stop-color="#C9940A"/>
+            </linearGradient>
+          </defs>
+          <rect width="120" height="138" fill="url(#cu-bg)"/>
+
+          <!-- Decorative background circles -->
+          <circle cx="60" cy="69" r="45" fill="none" stroke="rgba(185,55,157,0.12)" stroke-width="1"/>
+          <circle cx="60" cy="69" r="35" fill="none" stroke="rgba(185,55,157,0.1)" stroke-width="1"/>
+          <circle cx="60" cy="69" r="25" fill="none" stroke="rgba(185,55,157,0.08)" stroke-width="1"/>
+
+          <!-- Stand -->
+          <rect x="55" y="118" width="10" height="16" rx="3" fill="rgba(255,255,255,0.08)"/>
+          <rect x="46" y="132" width="28" height="4" rx="2" fill="rgba(255,255,255,0.10)"/>
+
+          <!-- CUSTOM blouse - dashed outline suggesting "design your own" -->
+          <path d="M28,36 Q40,28 60,26 Q80,28 92,36 L96,110 L24,110Z"
+                fill="url(#cu-body)"/>
+          <!-- Dashed outline for "custom" feel -->
+          <path d="M28,36 Q40,28 60,26 Q80,28 92,36 L96,110 L24,110Z"
+                fill="none" stroke="url(#cu-stroke)" stroke-width="2" stroke-dasharray="5,3" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- Sleeves also dashed -->
+          <path d="M28,36 Q16,42 12,62 Q11,72 16,74 L22,72 Q20,61 25,48Z"
+                fill="url(#cu-body)" opacity="0.8"/>
+          <path d="M28,36 Q16,42 12,62 Q11,72 16,74 L22,72 Q20,61 25,48Z"
+                fill="none" stroke="url(#cu-stroke)" stroke-width="1.5" stroke-dasharray="4,3" stroke-linecap="round"/>
+          <path d="M92,36 Q104,42 108,62 Q109,72 104,74 L98,72 Q100,61 95,48Z"
+                fill="url(#cu-body)" opacity="0.8"/>
+          <path d="M92,36 Q104,42 108,62 Q109,72 104,74 L98,72 Q100,61 95,48Z"
+                fill="none" stroke="url(#cu-stroke)" stroke-width="1.5" stroke-dasharray="4,3" stroke-linecap="round"/>
+
+          <!-- Neck dashed -->
+          <path d="M42,32 Q60,44 78,32" fill="none" stroke="url(#cu-stroke)" stroke-width="2" stroke-dasharray="4,3" stroke-linecap="round"/>
+          <ellipse cx="60" cy="28" rx="16" ry="7" fill="rgba(51,12,75,0.6)" opacity="0.8"/>
+          <ellipse cx="60" cy="28" rx="16" ry="7" fill="none" stroke="url(#cu-stroke)" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+          <!-- Central sparkle / "customize" icon -->
+          <g transform="translate(60,69)">
+            <path d="M0,-14 L2,-4 L12,-2 L4,4 L6,14 L0,8 L-6,14 L-4,4 L-12,-2 L-2,-4Z" fill="url(#gold6)" opacity="0.65"/>
+          </g>
+
+          <!-- Small decorative stars -->
+          <path d="M30,50 L31.2,47 L32.4,50 L35,51 L32.4,52 L31.2,55 L30,52 L27.4,51Z" fill="rgba(238,218,165,0.4)" transform="scale(0.7) translate(16,20)"/>
+          <path d="M85,55 L86.2,52 L87.4,55 L90,56 L87.4,57 L86.2,60 L85,57 L82.4,56Z" fill="rgba(238,218,165,0.35)" transform="scale(0.6) translate(57,35)"/>
+          <circle cx="35" cy="55" r="2" fill="rgba(238,218,165,0.35)"/>
+          <circle cx="85" cy="55" r="2" fill="rgba(238,218,165,0.35)"/>
+          <circle cx="35" cy="90" r="1.5" fill="rgba(185,55,157,0.4)"/>
+          <circle cx="85" cy="90" r="1.5" fill="rgba(185,55,157,0.4)"/>
+
+          <!-- Hem dashed border -->
+          <line x1="25" y1="107" x2="95" y2="107" stroke="url(#gold6)" stroke-width="2" stroke-dasharray="5,3" stroke-linecap="round"/>
+
+          <!-- "+" hint top corner -->
+          <circle cx="96" cy="20" r="10" fill="rgba(185,55,157,0.2)" stroke="rgba(185,55,157,0.4)" stroke-width="1"/>
+          <line x1="91" y1="20" x2="101" y2="20" stroke="rgba(238,218,165,0.8)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="96" y1="15" x2="96" y2="25" stroke="rgba(238,218,165,0.8)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="card-lbl">
+        <div class="lbl-en en">Custom</div>
+        <div class="lbl-ta en">தனிப்பயன்</div>
+        <div class="lbl-en ta" style="display:none;font-family:'Cormorant Garamond',serif;font-size:13.5px;font-weight:600;color:var(--dp)">Custom</div>
+        <div class="lbl-ta ta">தனிப்பயன்</div>
+      </div>
+    </div>
+
+  </div><!-- /style-grid -->
+
+  <!-- Selection hint -->
+  <div class="sel-hint" id="selHint">
+    <span class="en">Tap a style to select ↑</span>
+    <span class="ta" style="font-family:'Noto Sans Tamil',sans-serif">ஒரு வடிவத்தை தட்டி தேர்வு செய்யுங்கள் ↑</span>
+  </div>
+
+  <!-- Divider -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-text en">Upload Your Own Design</div>
+    <div class="divider-text-ta ta">உங்கள் சொந்த வடிவமைப்பை பதிவேற்றவும்</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- ── UPLOAD SECTION ── -->
+  <div class="upload-section">
+    <div class="upload-label en">Upload Your Own Design</div>
+    <div class="upload-label-ta ta">உங்கள் சொந்த வடிவமைப்பை பதிவேற்றவும்</div>
+    <div class="upload-sub en" style="display:flex;align-items:center;gap:5px">
+      <span style="font-size:10px;font-weight:600;color:var(--ss);background:rgba(185,55,157,0.1);padding:2px 8px;border-radius:7px">Optional</span>
+      Have a reference photo or design? Upload here
+    </div>
+    <div class="upload-sub-ta ta" style="display:flex;align-items:center;gap:5px">
+      <span style="font-size:9px;font-weight:600;color:var(--ss);background:rgba(185,55,157,0.1);padding:2px 7px;border-radius:7px">விரும்பினால்</span>
+      உங்கள் மாதிரி படம் இங்கே பதிவேற்றவும்
+    </div>
+
+    <!-- Upload zone -->
+    <div class="upload-zone" id="uploadZone">
+      <input type="file" accept="image/*" multiple onchange="handleFiles(event)" id="fileInput" aria-label="Upload design reference"/>
+
+      <!-- Animated cloud icon -->
+      <div class="cloud-icon">
+        <svg class="cloud-svg" width="60" height="48" viewBox="0 0 60 48" fill="none">
+          <!-- Cloud body -->
+          <path d="M46,36 L14,36 Q6,36 6,28 Q6,20 14,20 Q14,12 22,10 Q28,8 34,12 Q38,6 46,8 Q54,10 54,18 Q60,20 60,28 Q60,36 52,36Z" fill="none" stroke="url(#cloud-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Upload arrow -->
+          <line x1="30" y1="40" x2="30" y2="24" stroke="url(#cloud-grad)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M24,30 L30,24 L36,30" fill="none" stroke="url(#cloud-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="cloud-grad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#711E7B"/>
+              <stop offset="100%" stop-color="#B9379D"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="upload-title-en en">Tap to upload or drag and drop</div>
+      <div class="upload-title-ta ta">படத்தை பதிவேற்ற இங்கே தொடவும்</div>
+      <div class="upload-subtitle-en en">உங்கள் சொந்த வடிவமைப்பின் படத்தை இங்கே பதிவேற்றலாம்</div>
+      <div class="upload-subtitle-ta ta">Tap to upload your reference photo or design</div>
+
+      <div class="upload-hint-badge">
+        <span>📎</span>
+        <span>JPG · PNG · HEIC · Max 10 MB</span>
+      </div>
+    </div>
+
+    <!-- Preview strip -->
+    <div class="preview-strip" id="previewStrip"></div>
+  </div>
+
+  <div style="height:10px"></div>
+</main>
+
+<!-- ══════ BOTTOM NAV ══════ -->
+<div class="bottom-nav">
+  <button class="btn-back" onclick="goBack()" aria-label="Back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#330C4B" stroke-width="2.2" stroke-linecap="round"><path d="M9 11L5 7l4-4"/></svg>
+    <span class="en">Back</span>
+    <span class="ta" style="font-family:'Noto Sans Tamil',sans-serif">முதலில்</span>
+  </button>
+  <button class="btn-next" id="nextBtn" disabled onclick="goNext(this,event)" aria-label="Next">
+    <span class="en">Next</span>
+    <span class="ta" style="font-family:'Noto Sans Tamil',sans-serif">அடுத்து</span>
+    <span style="font-size:16px;transition:transform 0.2s" id="nextArrow">→</span>
+  </button>
+</div>
+
+<!-- TOAST -->
+<div id="toast" role="alert" aria-live="polite">
+  <span id="ti">✨</span><span id="tm">Style selected!</span>
+</div>
+
+<script>
+'use strict';
+let currentLang = 'en';
+let selectedStyle = null;
+let uploadedFiles = [];
+
+function setLang(lang) {
+  currentLang = lang;
+  document.body.classList.toggle('lang-ta', lang === 'ta');
+  document.body.classList.toggle('lang-en', lang === 'en');
+  ['btn-en','btn-ta'].forEach(id => {
+    const btn = document.getElementById(id);
+    btn.classList.toggle('active', id === 'btn-' + lang);
+    btn.setAttribute('aria-pressed', id === 'btn-' + lang);
+  });
+  document.documentElement.lang = lang === 'ta' ? 'ta' : 'en';
+}
+
+const styleNames = {
+  en:{ normal:'Normal Cut', princess:'Princess Cut', panel:'Panel Cut', highneck:'High Neck', boatneck:'Boat Neck', custom:'Custom Style' },
+  ta:{ normal:'சாதாரண கட்', princess:'பிரின்சஸ் கட்', panel:'பேனல் கட்', highneck:'உயர் கழுத்து', boatneck:'போட் நெக்', custom:'தனிப்பயன்' }
+};
+
+function selectStyle(type, card) {
+  document.querySelectorAll('.style-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  selectedStyle = type;
+  document.getElementById('nextBtn').disabled = false;
+  document.getElementById('selHint').classList.add('hidden');
+  const name = styleNames[currentLang][type];
+  showToast('✦', currentLang === 'ta' ? name + ' தேர்ந்தெடுக்கப்பட்டது!' : name + ' selected!');
+  card.style.transform = 'translateY(-3px) scale(0.97)';
+  setTimeout(() => { card.style.transform = 'translateY(-3px)'; }, 160);
+
+  // Show upload section hint for custom
+  if (type === 'custom') {
+    setTimeout(() => {
+      document.getElementById('uploadZone').style.borderColor = 'var(--ss)';
+      document.getElementById('uploadZone').style.background = 'rgba(185,55,157,0.05)';
+      showToast('📸', currentLang === 'ta' ? 'உங்கள் வடிவமைப்பை பதிவேற்றுங்கள்!' : 'Please upload your custom design!');
+    }, 800);
+  }
+}
+
+/* File handling */
+function handleFiles(e) {
+  Array.from(e.target.files).forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+    if (uploadedFiles.length >= 5) { showToast('⚠️', currentLang === 'ta' ? 'அதிகபட்சம் 5 படங்கள்' : 'Max 5 images'); return; }
+    uploadedFiles.push(file);
+    const r = new FileReader();
+    r.onload = ev => addThumb(ev.target.result, uploadedFiles.length - 1);
+    r.readAsDataURL(file);
+  });
+  e.target.value = '';
+}
+
+function addThumb(src, idx) {
+  const strip = document.getElementById('previewStrip');
+  const old = strip.querySelector('.add-btn');
+  if (old) strip.removeChild(old);
+  const item = document.createElement('div');
+  item.className = 'prev-item';
+  item.dataset.idx = idx;
+  item.innerHTML = `<img src="${src}" class="prev-img" alt="Ref ${idx+1}"/><button class="prev-rm" onclick="rmThumb(${idx})" aria-label="Remove">✕</button>`;
+  strip.appendChild(item);
+  if (uploadedFiles.length < 5) {
+    const ab = document.createElement('div');
+    ab.className = 'add-btn';
+    ab.innerHTML = `<input type="file" accept="image/*" multiple onchange="handleFiles(event)" aria-label="Add more"><span class="add-btn-icon">+</span><span class="add-btn-txt">${currentLang==='ta'?'மேலும்':'Add more'}</span>`;
+    strip.appendChild(ab);
+  }
+  showToast('✅', currentLang === 'ta' ? 'படம் சேர்க்கப்பட்டது!' : 'Image added!');
+}
+
+function rmThumb(idx) {
+  uploadedFiles.splice(idx, 1);
+  document.getElementById('previewStrip').innerHTML = '';
+  uploadedFiles.forEach((f, i) => { const r = new FileReader(); r.onload = ev => addThumb(ev.target.result, i); r.readAsDataURL(f); });
+}
+
+/* Drag events */
+const uz = document.getElementById('uploadZone');
+uz.addEventListener('dragover', e => { e.preventDefault(); uz.classList.add('drag-over'); });
+uz.addEventListener('dragleave', () => uz.classList.remove('drag-over'));
+uz.addEventListener('drop', e => {
+  e.preventDefault(); uz.classList.remove('drag-over');
+  const dt = e.dataTransfer;
+  if (dt.files.length) handleFiles({ target:{ files:dt.files }, preventDefault:()=>{} });
+});
+
+function goBack() {
+  document.querySelector('.page').style.animation = 'pageOut 0.3s ease forwards';
+  setTimeout(() => { window.location.href = 'choose-garment.html?garment=blouse&lang=' + currentLang; }, 280);
+}
+
+function goNext(btn, e) {
+  if (!selectedStyle) return;
+  const rect = btn.getBoundingClientRect();
+  const c = document.createElement('span');
+  const sz = Math.max(rect.width, rect.height);
+  c.className = 'ripple';
+  c.style.cssText = `width:${sz}px;height:${sz}px;left:${e.clientX-rect.left-sz/2}px;top:${e.clientY-rect.top-sz/2}px`;
+  btn.appendChild(c);
+  c.addEventListener('animationend', () => c.remove());
+  showToast('🧵', currentLang === 'ta' ? 'அடுத்த படிக்கு...' : 'Moving to next step...');
+  setTimeout(() => {
+    window.location.href = `blouse-neck.html?style=${selectedStyle}&lang=${currentLang}`;
+  }, 700);
+}
+
+let tt = null;
+function showToast(icon, msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('ti').textContent = icon;
+  document.getElementById('tm').textContent = msg;
+  t.classList.add('show');
+  if (tt) clearTimeout(tt);
+  tt = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+/* Desktop hover */
+document.querySelectorAll('.style-card').forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    if (!card.classList.contains('selected')) {
+      card.style.transform = 'translateY(-4px) scale(1.02)';
+      card.style.boxShadow = '0 10px 30px rgba(113,30,123,0.18)';
+      card.style.borderColor = 'rgba(185,55,157,0.28)';
+      card.style.transition = 'all 0.3s cubic-bezier(0.34,1.56,0.64,1)';
+    }
+  });
+  card.addEventListener('mouseleave', () => {
+    if (!card.classList.contains('selected')) {
+      card.style.transform = '';
+      card.style.boxShadow = '';
+      card.style.borderColor = '';
+    }
+  });
+});
+
+/* Init */
+document.body.classList.add('lang-en');
+const p = new URLSearchParams(window.location.search);
+if (p.get('lang') === 'ta') setLang('ta');
+</script>
+</body>
+</html>

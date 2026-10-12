@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <meta name="theme-color" content="#330C4B"/>
+  <title>Choose Garment — Womens World</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Noto+Sans+Tamil:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ── RESET ── */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    html{height:100%;scroll-behavior:smooth}
+    body{
+      font-family:'Inter','Noto Sans Tamil',sans-serif;
+      background:#FBF3F8;
+      color:#330C4B;
+      min-height:100dvh;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      display:flex;flex-direction:column;
+    }
+
+    /* ── VARIABLES ── */
+    :root{
+      --dp:#330C4B; --pi:#51017C; --em:#711E7B;
+      --ss:#B9379D; --fw:#E3A88A; --mz:#EEDAA5;
+      --bg:#FBF3F8; --bg2:#F4EAF2; --white:#FFFFFF;
+      --radius:18px; --radius-sm:12px;
+      --shadow:0 4px 20px rgba(81,1,124,0.10);
+      --ease:cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    /* ── LANGUAGE ── */
+    body.lang-ta .en{display:none!important}
+    body.lang-ta .ta{display:block!important}
+    body.lang-en .ta{display:none!important}
+    body.lang-en .en{display:block!important}
+    .ta{display:none}
+
+    /* ── PAGE ENTRY ANIMATION ── */
+    @keyframes pageIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+    .page-wrapper{animation:pageIn 0.45s cubic-bezier(0.25,0.46,0.45,0.94) both}
+
+    /* ── HEADER ── */
+    header{
+      position:sticky;top:0;z-index:200;
+      background:rgba(251,243,248,0.95);
+      backdrop-filter:blur(18px) saturate(1.6);
+      -webkit-backdrop-filter:blur(18px) saturate(1.6);
+      border-bottom:1px solid rgba(113,30,123,0.09);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 16px;height:58px;gap:8px;
+    }
+    .header-back{
+      width:38px;height:38px;border-radius:12px;
+      border:1.5px solid rgba(113,30,123,0.15);
+      background:var(--white);
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;flex-shrink:0;
+      transition:all 0.2s ease;
+      text-decoration:none;
+    }
+    .header-back:active{background:var(--bg2);transform:scale(0.94)}
+    .header-back svg{width:16px;height:16px}
+    .header-center{flex:1;text-align:center;min-width:0}
+    .header-brand{
+      font-family:'Cormorant Garamond',serif;
+      font-size:16px;font-weight:600;
+      color:var(--dp);letter-spacing:1.5px;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    }
+    .header-sub{font-size:9px;color:var(--em);opacity:0.65;letter-spacing:0.8px;text-transform:uppercase}
+    .lang-toggle{
+      display:flex;align-items:center;
+      background:var(--bg2);border:1px solid rgba(113,30,123,0.14);
+      border-radius:20px;padding:3px;gap:2px;flex-shrink:0;
+    }
+    .lang-btn{
+      padding:4px 9px;border-radius:16px;border:none;
+      background:transparent;font-size:10.5px;font-weight:600;
+      cursor:pointer;color:var(--em);transition:all 0.2s ease;
+      font-family:'Noto Sans Tamil','Inter',sans-serif;
+    }
+    .lang-btn.active{
+      background:linear-gradient(135deg,var(--em),var(--ss));
+      color:white;box-shadow:0 2px 8px rgba(113,30,123,0.3);
+    }
+
+    /* ── PROGRESS BAR ── */
+    .progress-track{
+      height:4px;background:rgba(113,30,123,0.10);
+      position:relative;overflow:hidden;
+    }
+    .progress-fill{
+      height:100%;
+      background:linear-gradient(90deg,var(--em),var(--ss),var(--fw));
+      background-size:200% 100%;
+      border-radius:0 3px 3px 0;
+      transition:width 0.7s cubic-bezier(0.4,0,0.2,1);
+      animation:progressShimmer 2.5s linear infinite;
+    }
+    @keyframes progressShimmer{
+      0%{background-position:200% center}
+      100%{background-position:-200% center}
+    }
+    .progress-dots{
+      display:flex;justify-content:center;gap:5px;
+      padding:8px 0 4px;
+    }
+    .progress-dot{
+      width:5px;height:5px;border-radius:50%;
+      background:rgba(113,30,123,0.18);
+      transition:all 0.3s ease;
+    }
+    .progress-dot.active{
+      background:linear-gradient(135deg,var(--em),var(--ss));
+      width:18px;border-radius:3px;
+    }
+    .progress-dot.done{background:var(--em);opacity:0.5}
+
+    /* ── MAIN CONTENT ── */
+    main{
+      flex:1;overflow-y:auto;overflow-x:hidden;
+      padding:0 0 120px 0;
+      scroll-behavior:smooth;
+    }
+
+    /* ── HEADING SECTION ── */
+    .heading-section{
+      padding:22px 20px 8px;
+      position:relative;
+    }
+    .step-label{
+      display:inline-flex;align-items:center;gap:5px;
+      font-size:10px;font-weight:600;
+      color:var(--ss);letter-spacing:1.5px;text-transform:uppercase;
+      margin-bottom:8px;
+    }
+    .step-label::before{
+      content:'';width:16px;height:2px;
+      background:linear-gradient(90deg,var(--fw),var(--ss));
+      border-radius:2px;display:inline-block;
+    }
+    .heading-en{
+      font-family:'Cormorant Garamond',serif;
+      font-size:26px;font-weight:600;color:var(--dp);
+      line-height:1.15;letter-spacing:-0.3px;
+    }
+    .heading-ta{
+      font-family:'Noto Sans Tamil',sans-serif;
+      font-size:17px;font-weight:500;color:var(--dp);
+      line-height:1.5;
+    }
+    .heading-sub{
+      margin-top:6px;
+      font-size:13px;color:var(--em);opacity:0.75;line-height:1.5;
+    }
+    .heading-sub-ta{
+      font-family:'Noto Sans Tamil',sans-serif;
+      margin-top:6px;font-size:12px;color:var(--em);opacity:0.75;line-height:1.5;
+    }
+
+    /* ── GARMENT GRID ── */
+    .garment-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:13px;
+      padding:16px 16px 0;
+    }
+
+    /* ── GARMENT CARD ── */
+    .garment-card{
+      background:var(--white);
+      border-radius:var(--radius);
+      border:2px solid rgba(113,30,123,0.08);
+      overflow:hidden;cursor:pointer;
+      box-shadow:var(--shadow);
+      transition:all 0.3s var(--ease);
+      position:relative;
+      animation:cardIn 0.55s var(--ease) both;
+    }
+    .garment-card:nth-child(1){animation-delay:0.05s}
+    .garment-card:nth-child(2){animation-delay:0.12s}
+    .garment-card:nth-child(3){animation-delay:0.19s}
+    .garment-card:nth-child(4){animation-delay:0.26s}
+    @keyframes cardIn{
+      from{opacity:0;transform:translateY(24px) scale(0.94)}
+      to  {opacity:1;transform:translateY(0) scale(1)}
+    }
+    .garment-card:active{transform:scale(0.96);box-shadow:0 2px 10px rgba(113,30,123,0.12)}
+    .garment-card.selected{
+      border-color:var(--ss);
+      box-shadow:0 0 0 3px rgba(185,55,157,0.15), 0 8px 32px rgba(113,30,123,0.18);
+      background:linear-gradient(160deg,rgba(185,55,157,0.03),rgba(113,30,123,0.04));
+    }
+
+    /* Checkmark badge */
+    .card-check{
+      position:absolute;top:9px;right:9px;z-index:10;
+      width:24px;height:24px;border-radius:50%;
+      background:linear-gradient(135deg,var(--em),var(--ss));
+      color:white;font-size:12px;font-weight:700;
+      display:flex;align-items:center;justify-content:center;
+      opacity:0;transform:scale(0) rotate(-45deg);
+      transition:all 0.35s var(--ease);
+      box-shadow:0 3px 10px rgba(113,30,123,0.4);
+    }
+    .garment-card.selected .card-check{opacity:1;transform:scale(1) rotate(0deg)}
+
+    /* Trending / Popular badge */
+    .card-badge{
+      position:absolute;top:9px;left:9px;z-index:10;
+      background:rgba(51,12,75,0.75);backdrop-filter:blur(4px);
+      color:var(--mz);font-size:9px;font-weight:600;
+      padding:3px 8px;border-radius:8px;letter-spacing:0.5px;
+      font-family:'Inter',sans-serif;
+    }
+    .card-badge.ta-badge{font-family:'Noto Sans Tamil',sans-serif;font-size:8px}
+
+    /* ── CARD IMAGE AREA ── */
+    .card-image{
+      width:100%;aspect-ratio:3/4;
+      position:relative;overflow:hidden;
+    }
+    .card-image svg{width:100%;height:100%}
+
+    /* Shimmer overlay on selected */
+    .card-image::after{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(135deg,rgba(185,55,157,0.08),transparent 60%);
+      opacity:0;transition:opacity 0.3s ease;pointer-events:none;
+    }
+    .garment-card.selected .card-image::after{opacity:1}
+
+    /* ── CARD LABEL ── */
+    .card-label{
+      padding:12px 12px 14px;
+      border-top:1px solid rgba(113,30,123,0.06);
+      background:var(--white);
+      transition:background 0.3s ease;
+    }
+    .garment-card.selected .card-label{background:rgba(185,55,157,0.03)}
+    .label-en{
+      font-family:'Cormorant Garamond',serif;
+      font-size:17px;font-weight:600;color:var(--dp);
+      line-height:1.1;letter-spacing:0.1px;
+    }
+    .label-ta{
+      font-family:'Noto Sans Tamil',sans-serif;
+      font-size:11.5px;font-weight:400;color:var(--em);
+      opacity:0.8;margin-top:3px;line-height:1.3;
+    }
+    .label-sub{
+      font-size:10px;color:var(--ss);font-weight:500;
+      margin-top:5px;
+      display:flex;align-items:center;gap:4px;
+    }
+    .label-sub::before{content:'✦';font-size:8px}
+
+    /* ── REFERENCE UPLOAD SECTION ── */
+    .ref-section{
+      margin:20px 16px 0;
+      border-radius:var(--radius);
+      border:1.5px dashed rgba(185,55,157,0.3);
+      background:rgba(185,55,157,0.03);
+      overflow:hidden;
+      transition:all 0.3s ease;
+    }
+    .ref-header{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 16px;cursor:pointer;
+      transition:background 0.2s ease;
+      -webkit-user-select:none;user-select:none;
+    }
+    .ref-header:active{background:rgba(185,55,157,0.06)}
+    .ref-header-left{display:flex;align-items:center;gap:10px}
+    .ref-icon{
+      width:36px;height:36px;border-radius:12px;
+      background:linear-gradient(135deg,rgba(238,218,165,0.4),rgba(185,55,157,0.12));
+      display:flex;align-items:center;justify-content:center;font-size:17px;
+    }
+    .ref-title-en{font-size:13px;font-weight:600;color:var(--dp)}
+    .ref-title-ta{font-family:'Noto Sans Tamil',sans-serif;font-size:11px;color:var(--em);opacity:0.75;margin-top:2px}
+    .ref-optional{
+      font-size:10px;font-weight:500;color:var(--ss);
+      background:rgba(185,55,157,0.1);padding:3px 8px;border-radius:8px;
+      font-family:'Inter',sans-serif;
+    }
+    .ref-chevron{
+      font-size:14px;color:var(--em);opacity:0.5;
+      transition:transform 0.3s ease;
+    }
+    .ref-section.open .ref-chevron{transform:rotate(180deg)}
+
+    .ref-body{
+      max-height:0;overflow:hidden;
+      transition:max-height 0.4s cubic-bezier(0.4,0,0.2,1);
+      padding:0 16px;
+    }
+    .ref-section.open .ref-body{max-height:300px;padding:0 16px 16px}
+
+    .upload-zone{
+      border:1.5px dashed rgba(185,55,157,0.35);
+      border-radius:14px;background:rgba(255,255,255,0.7);
+      padding:20px 16px;text-align:center;cursor:pointer;
+      transition:all 0.2s ease;position:relative;
+    }
+    .upload-zone:active,.upload-zone.drag-over{
+      background:rgba(185,55,157,0.08);
+      border-color:var(--ss);
+    }
+    .upload-zone input[type="file"]{
+      position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;
+    }
+    .upload-icon{font-size:28px;margin-bottom:8px;display:block}
+    .upload-text-en{font-size:13px;font-weight:500;color:var(--dp)}
+    .upload-text-ta{font-family:'Noto Sans Tamil',sans-serif;font-size:11px;color:var(--em);opacity:0.7;margin-top:3px}
+    .upload-hint{font-size:10px;color:var(--em);opacity:0.5;margin-top:6px}
+
+    /* Preview strip */
+    .preview-strip{
+      display:flex;gap:8px;flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .preview-thumb{
+      width:60px;height:60px;border-radius:10px;
+      object-fit:cover;
+      border:2px solid rgba(185,55,157,0.3);
+      position:relative;flex-shrink:0;
+      animation:thumbIn 0.3s var(--ease) both;
+    }
+    @keyframes thumbIn{from{opacity:0;transform:scale(0.7)}to{opacity:1;transform:scale(1)}}
+    .preview-item{position:relative;flex-shrink:0}
+    .preview-remove{
+      position:absolute;top:-5px;right:-5px;
+      width:18px;height:18px;border-radius:50%;
+      background:#E53E3E;color:white;
+      border:none;cursor:pointer;
+      font-size:11px;display:flex;align-items:center;justify-content:center;
+      box-shadow:0 2px 6px rgba(229,62,62,0.4);
+    }
+    .add-more-btn{
+      width:60px;height:60px;border-radius:10px;
+      border:1.5px dashed rgba(185,55,157,0.35);
+      background:rgba(185,55,157,0.04);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:2px;cursor:pointer;color:var(--ss);
+      font-size:20px;position:relative;flex-shrink:0;
+    }
+    .add-more-btn input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+    .add-more-label{font-size:8px;font-weight:500;color:var(--ss);font-family:'Inter',sans-serif}
+
+    /* ── BOTTOM NAV ── */
+    .bottom-nav{
+      position:fixed;bottom:0;left:0;right:0;z-index:100;
+      background:rgba(251,243,248,0.97);
+      backdrop-filter:blur(20px) saturate(1.5);
+      -webkit-backdrop-filter:blur(20px) saturate(1.5);
+      border-top:1px solid rgba(113,30,123,0.09);
+      padding:12px 16px;
+      display:flex;gap:12px;align-items:center;
+      padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));
+    }
+    .btn-back{
+      flex:1;padding:15px 8px;
+      border:1.5px solid rgba(113,30,123,0.2);
+      background:var(--white);border-radius:16px;
+      color:var(--dp);font-size:14px;font-weight:600;
+      cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;
+      transition:all 0.2s ease;
+      font-family:'Inter','Noto Sans Tamil',sans-serif;
+    }
+    .btn-back:active{background:var(--bg2);transform:scale(0.97)}
+    .btn-next{
+      flex:2.2;padding:15px 8px;
+      border:none;border-radius:16px;
+      background:linear-gradient(135deg,var(--em),var(--ss));
+      color:white;font-size:15px;font-weight:600;
+      cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
+      transition:all 0.25s ease;
+      box-shadow:0 6px 24px rgba(113,30,123,0.3);
+      position:relative;overflow:hidden;
+      font-family:'Inter','Noto Sans Tamil',sans-serif;
+    }
+    .btn-next:disabled{
+      background:linear-gradient(135deg,rgba(113,30,123,0.3),rgba(185,55,157,0.3));
+      box-shadow:none;cursor:not-allowed;
+    }
+    .btn-next:not(:disabled):active{transform:scale(0.97);box-shadow:0 3px 12px rgba(113,30,123,0.25)}
+    .btn-next .next-arrow{font-size:16px;transition:transform 0.2s ease}
+    .btn-next:not(:disabled):hover .next-arrow{transform:translateX(3px)}
+    /* Ripple */
+    .ripple-circle{
+      position:absolute;border-radius:50%;
+      background:rgba(255,255,255,0.25);
+      transform:scale(0);animation:ripple 0.6s linear;
+      pointer-events:none;
+    }
+    @keyframes ripple{to{transform:scale(4);opacity:0}}
+
+    /* ── TOAST ── */
+    #toast{
+      position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(40px);
+      z-index:9999;background:linear-gradient(135deg,#330C4B,#51017C);
+      color:white;border-radius:14px;padding:10px 18px;
+      font-size:13px;font-weight:500;white-space:nowrap;
+      box-shadow:0 6px 28px rgba(51,12,75,0.4);
+      display:flex;align-items:center;gap:7px;
+      transition:transform 0.4s var(--ease);pointer-events:none;
+      font-family:'Noto Sans Tamil','Inter',sans-serif;
+    }
+    #toast.show{transform:translateX(-50%) translateY(0)}
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar{width:3px}
+    ::-webkit-scrollbar-thumb{background:rgba(113,30,123,0.25);border-radius:3px}
+
+    /* Selection hint */
+    .selection-hint{
+      text-align:center;padding:10px 20px 0;
+      font-size:12px;color:var(--em);opacity:0.6;
+      transition:all 0.3s ease;
+    }
+    .selection-hint.hidden{opacity:0;pointer-events:none}
+  </style>
+</head>
+<body class="lang-en">
+
+<!-- ══════ HEADER ══════ -->
+<header>
+  <a class="header-back" href="index.html" aria-label="Back">
+    <svg viewBox="0 0 16 16" fill="none" stroke="#330C4B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10 12L6 8l4-4"/>
+    </svg>
+  </a>
+
+  <div class="header-center">
+    <div class="header-brand">WOMENS WORLD</div>
+    <div class="header-sub en">Design Your Dream Outfit</div>
+    <div class="header-sub ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:8px;">உங்கள் கனவு உடை வடிவமைக்கவும்</div>
+  </div>
+
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')" aria-pressed="true">EN</button>
+    <button class="lang-btn" id="btn-ta" onclick="setLang('ta')" aria-pressed="false" style="font-family:'Noto Sans Tamil',sans-serif">தமிழ்</button>
+  </div>
+</header>
+
+<!-- ══════ PROGRESS BAR ══════ -->
+<div class="progress-track">
+  <div class="progress-fill" id="progressFill" style="width:10%"></div>
+</div>
+<div class="progress-dots" aria-hidden="true">
+  <div class="progress-dot active" title="Choose Garment"></div>
+  <div class="progress-dot" title="Style"></div>
+  <div class="progress-dot" title="Neck Design"></div>
+  <div class="progress-dot" title="Sleeves"></div>
+  <div class="progress-dot" title="Back Design"></div>
+  <div class="progress-dot" title="Embroidery"></div>
+  <div class="progress-dot" title="Fabric"></div>
+  <div class="progress-dot" title="Measurements"></div>
+</div>
+
+<!-- ══════ MAIN ══════ -->
+<main class="page-wrapper">
+
+  <!-- Heading -->
+  <div class="heading-section">
+    <div class="step-label en">Step One · Choose Garment</div>
+    <div class="step-label ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:9px;">படி ஒன்று · உடை தேர்ந்தெடுங்கள்</div>
+
+    <h1 class="heading-en en">What would you like to customise?</h1>
+    <h1 class="heading-ta ta">எதை தனிப்பயனாக வடிவமைக்க விரும்புகிறீர்கள்?</h1>
+
+    <div class="heading-sub en">Tap a garment to begin your design journey</div>
+    <div class="heading-sub-ta ta">வடிவமைப்பை தொடங்க ஒரு உடையை தேர்ந்தெடுக்கவும்</div>
+  </div>
+
+  <!-- Garment Grid -->
+  <div class="garment-grid" id="garmentGrid">
+
+    <!-- ── BLOUSE ── -->
+    <div class="garment-card" id="card-blouse" onclick="selectGarment('blouse',this)" role="button" tabindex="0" aria-label="Blouse" onkeydown="if(event.key==='Enter'||event.key===' ')selectGarment('blouse',this)">
+      <div class="card-check" aria-hidden="true">✓</div>
+      <div class="card-badge en">Most Popular</div>
+      <div class="card-badge ta-badge ta">மிகவும் பிரபலம்</div>
+
+      <div class="card-image">
+        <svg viewBox="0 0 200 267" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Silk background -->
+          <defs>
+            <radialGradient id="bg1" cx="40%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#7B1F7F"/>
+              <stop offset="50%" stop-color="#51017C"/>
+              <stop offset="100%" stop-color="#2A0040"/>
+            </radialGradient>
+            <radialGradient id="silk1" cx="60%" cy="20%" r="60%">
+              <stop offset="0%" stop-color="rgba(185,55,157,0.35)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </radialGradient>
+            <linearGradient id="blouseBody" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#9B2D94"/>
+              <stop offset="40%" stop-color="#7B1F7F"/>
+              <stop offset="100%" stop-color="#4A0060"/>
+            </linearGradient>
+            <linearGradient id="blouseSheen" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
+              <stop offset="40%" stop-color="rgba(255,255,255,0.04)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </linearGradient>
+            <linearGradient id="goldBorder" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#C9940A"/>
+              <stop offset="30%" stop-color="#EEDAA5"/>
+              <stop offset="60%" stop-color="#D4A017"/>
+              <stop offset="100%" stop-color="#EEDAA5"/>
+            </linearGradient>
+            <filter id="softGlow"><feGaussianBlur stdDeviation="3" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+          </defs>
+
+          <!-- Background fabric -->
+          <rect width="200" height="267" fill="url(#bg1)"/>
+          <rect width="200" height="267" fill="url(#silk1)"/>
+
+          <!-- Fabric texture lines -->
+          <line x1="0" y1="40" x2="200" y2="40" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="80" x2="200" y2="80" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="120" x2="200" y2="120" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="160" x2="200" y2="160" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="200" x2="200" y2="200" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="240" x2="200" y2="240" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="40" y1="0" x2="40" y2="267" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <line x1="80" y1="0" x2="80" y2="267" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <line x1="120" y1="0" x2="120" y2="267" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <line x1="160" y1="0" x2="160" y2="267" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+
+          <!-- BLOUSE SHAPE - back view (showcasing back design) -->
+          <!-- Main body -->
+          <path d="M40,70 Q50,50 100,45 Q150,50 160,70 L170,200 L130,210 L130,195 Q100,200 70,195 L70,210 L30,200Z"
+                fill="url(#blouseBody)"/>
+          <!-- Sheen highlight -->
+          <path d="M40,70 Q50,50 100,45 Q150,50 160,70 L170,200 L130,210 L130,195 Q100,200 70,195 L70,210 L30,200Z"
+                fill="url(#blouseSheen)"/>
+
+          <!-- Left sleeve - 3/4 -->
+          <path d="M40,70 Q20,80 15,130 Q13,150 22,155 L32,150 Q28,135 35,105 Q38,88 45,80Z"
+                fill="url(#blouseBody)" opacity="0.95"/>
+          <!-- Right sleeve -->
+          <path d="M160,70 Q180,80 185,130 Q187,150 178,155 L168,150 Q172,135 165,105 Q162,88 155,80Z"
+                fill="url(#blouseBody)" opacity="0.95"/>
+
+          <!-- Neckline - elegant U-back -->
+          <path d="M60,70 Q80,58 100,55 Q120,58 140,70 Q125,75 100,73 Q75,75 60,70Z"
+                fill="#3A0050" opacity="0.8"/>
+
+          <!-- Deep back neckline curve -->
+          <path d="M65,72 Q100,110 135,72" fill="none" stroke="url(#goldBorder)" stroke-width="2.5" stroke-linecap="round"/>
+
+          <!-- Neckline gold border -->
+          <path d="M58,70 Q100,60 142,70" fill="none" stroke="url(#goldBorder)" stroke-width="2" stroke-linecap="round"/>
+
+          <!-- Gold embroidery at neckline -->
+          <path d="M63,69 Q100,62 137,69" fill="none" stroke="rgba(238,218,165,0.5)" stroke-width="1" stroke-linecap="round"/>
+
+          <!-- Diamond pattern at neckline -->
+          <path d="M80,68 L83,72 L80,76 L77,72Z" fill="#EEDAA5" opacity="0.7"/>
+          <path d="M100,67 L103,71 L100,75 L97,71Z" fill="#EEDAA5" opacity="0.8"/>
+          <path d="M120,68 L123,72 L120,76 L117,72Z" fill="#EEDAA5" opacity="0.7"/>
+
+          <!-- Tie-back strings -->
+          <path d="M88,73 Q82,90 78,108" fill="none" stroke="url(#goldBorder)" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M112,73 Q118,90 122,108" fill="none" stroke="url(#goldBorder)" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M78,108 Q100,115 122,108" fill="none" stroke="url(#goldBorder)" stroke-width="1" stroke-dasharray="3,2" stroke-linecap="round"/>
+
+          <!-- Embroidery border at hem -->
+          <path d="M32,195 Q100,205 168,195" fill="none" stroke="url(#goldBorder)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M35,200 Q100,209 165,200" fill="none" stroke="rgba(238,218,165,0.4)" stroke-width="1" stroke-linecap="round"/>
+
+          <!-- Embroidery motifs on body -->
+          <!-- Flower 1 -->
+          <g transform="translate(100,135)">
+            <circle cx="0" cy="0" r="5" fill="rgba(238,218,165,0.2)"/>
+            <path d="M0,-8 Q3,-4 0,0 Q-3,-4 0,-8Z" fill="#EEDAA5" opacity="0.5"/>
+            <path d="M8,0 Q4,3 0,0 Q4,-3 8,0Z" fill="#EEDAA5" opacity="0.5"/>
+            <path d="M0,8 Q-3,4 0,0 Q3,4 0,8Z" fill="#EEDAA5" opacity="0.5"/>
+            <path d="M-8,0 Q-4,-3 0,0 Q-4,3 -8,0Z" fill="#EEDAA5" opacity="0.5"/>
+            <circle cx="0" cy="0" r="2.5" fill="#D4A017" opacity="0.7"/>
+          </g>
+          <!-- Flower 2 small -->
+          <g transform="translate(68,155)">
+            <path d="M0,-5 Q2,-2 0,0 Q-2,-2 0,-5Z" fill="#EEDAA5" opacity="0.4"/>
+            <path d="M5,0 Q2,2 0,0 Q2,-2 5,0Z" fill="#EEDAA5" opacity="0.4"/>
+            <path d="M0,5 Q-2,2 0,0 Q2,2 0,5Z" fill="#EEDAA5" opacity="0.4"/>
+            <path d="M-5,0 Q-2,-2 0,0 Q-2,2 -5,0Z" fill="#EEDAA5" opacity="0.4"/>
+            <circle cx="0" cy="0" r="1.5" fill="#C9940A" opacity="0.6"/>
+          </g>
+          <g transform="translate(132,155)">
+            <path d="M0,-5 Q2,-2 0,0 Q-2,-2 0,-5Z" fill="#EEDAA5" opacity="0.4"/>
+            <path d="M5,0 Q2,2 0,0 Q2,-2 5,0Z" fill="#EEDAA5" opacity="0.4"/>
+            <path d="M0,5 Q-2,2 0,0 Q2,2 0,5Z" fill="#EEDAA5" opacity="0.4"/>
+            <path d="M-5,0 Q-2,-2 0,0 Q-2,2 -5,0Z" fill="#EEDAA5" opacity="0.4"/>
+            <circle cx="0" cy="0" r="1.5" fill="#C9940A" opacity="0.6"/>
+          </g>
+
+          <!-- Sleeve gold border -->
+          <path d="M15,130 Q22,157 32,155" fill="none" stroke="url(#goldBorder)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M185,130 Q178,157 168,155" fill="none" stroke="url(#goldBorder)" stroke-width="2" stroke-linecap="round"/>
+
+          <!-- Small dot embroidery on sleeves -->
+          <circle cx="22" cy="110" r="2" fill="rgba(238,218,165,0.5)"/>
+          <circle cx="19" cy="120" r="1.5" fill="rgba(238,218,165,0.4)"/>
+          <circle cx="178" cy="110" r="2" fill="rgba(238,218,165,0.5)"/>
+          <circle cx="181" cy="120" r="1.5" fill="rgba(238,218,165,0.4)"/>
+
+          <!-- Sheen diagonal -->
+          <path d="M45,50 Q90,80 140,200" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="25" stroke-linecap="round"/>
+
+          <!-- Gold sparkles -->
+          <path d="M155,60 L157,55 L159,60 L157,65Z" fill="#EEDAA5" opacity="0.6"/>
+          <path d="M40,220 L42,215 L44,220 L42,225Z" fill="#EEDAA5" opacity="0.5"/>
+          <circle cx="170" cy="230" r="2.5" fill="#D4A017" opacity="0.4"/>
+          <circle cx="30" cy="85" r="2" fill="#EEDAA5" opacity="0.4"/>
+        </svg>
+      </div>
+
+      <div class="card-label">
+        <div class="label-en en">Blouse</div>
+        <div class="label-en ta" style="display:none;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--dp)">Blouse</div>
+        <div class="label-ta en">பிளவுஸ்</div>
+        <div class="label-ta ta">பிளவுஸ்</div>
+        <div class="label-sub en">Embroidered · Silk · Custom fit</div>
+        <div class="label-sub ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:9px">தனிப்பயன் தையல்</div>
+      </div>
+    </div>
+
+    <!-- ── CHUDI / KURTI ── -->
+    <div class="garment-card" id="card-chudi" onclick="selectGarment('chudi',this)" role="button" tabindex="0" aria-label="Chudi Kurti" onkeydown="if(event.key==='Enter'||event.key===' ')selectGarment('chudi',this)">
+      <div class="card-check" aria-hidden="true">✓</div>
+      <div class="card-badge en">Trending</div>
+      <div class="card-badge ta-badge ta">டிரெண்டிங்</div>
+
+      <div class="card-image">
+        <svg viewBox="0 0 200 267" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="bg2" cx="35%" cy="25%" r="75%">
+              <stop offset="0%" stop-color="#1B7A6B"/>
+              <stop offset="55%" stop-color="#0E5C4E"/>
+              <stop offset="100%" stop-color="#063D30"/>
+            </radialGradient>
+            <radialGradient id="silk2" cx="65%" cy="15%" r="55%">
+              <stop offset="0%" stop-color="rgba(46,183,160,0.3)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </radialGradient>
+            <linearGradient id="kurti1" x1="0" y1="0" x2="0.5" y2="1">
+              <stop offset="0%" stop-color="#2BA898"/>
+              <stop offset="40%" stop-color="#1B7A6B"/>
+              <stop offset="100%" stop-color="#0A4A3C"/>
+            </linearGradient>
+            <linearGradient id="kurti-sheen" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.20)"/>
+              <stop offset="35%" stop-color="rgba(255,255,255,0.05)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </linearGradient>
+            <linearGradient id="contrastBorder" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#F0B429"/>
+              <stop offset="50%" stop-color="#FCEFC7"/>
+              <stop offset="100%" stop-color="#F0B429"/>
+            </linearGradient>
+          </defs>
+
+          <rect width="200" height="267" fill="url(#bg2)"/>
+          <rect width="200" height="267" fill="url(#silk2)"/>
+
+          <!-- Diagonal fabric weave -->
+          <line x1="0" y1="0" x2="50" y2="267" stroke="rgba(255,255,255,0.025)" stroke-width="1"/>
+          <line x1="50" y1="0" x2="100" y2="267" stroke="rgba(255,255,255,0.025)" stroke-width="1"/>
+          <line x1="100" y1="0" x2="150" y2="267" stroke="rgba(255,255,255,0.025)" stroke-width="1"/>
+          <line x1="150" y1="0" x2="200" y2="267" stroke="rgba(255,255,255,0.025)" stroke-width="1"/>
+
+          <!-- KURTI SHAPE - front view, long -->
+          <!-- Anarkali/flared kurti -->
+          <path d="M55,35 Q75,25 100,22 Q125,25 145,35 L158,200 Q130,230 100,235 Q70,230 42,200Z"
+                fill="url(#kurti1)"/>
+          <path d="M55,35 Q75,25 100,22 Q125,25 145,35 L158,200 Q130,230 100,235 Q70,230 42,200Z"
+                fill="url(#kurti-sheen)"/>
+
+          <!-- Left sleeve - full sleeve -->
+          <path d="M55,35 Q30,45 18,100 Q12,125 16,138 L28,135 Q28,120 36,88 Q42,62 58,46Z"
+                fill="url(#kurti1)"/>
+          <!-- Right sleeve -->
+          <path d="M145,35 Q170,45 182,100 Q188,125 184,138 L172,135 Q172,120 164,88 Q158,62 142,46Z"
+                fill="url(#kurti1)"/>
+
+          <!-- Kurti neckline - V neck with overlap -->
+          <path d="M75,38 Q100,75 125,38" fill="none" stroke="rgba(10,74,60,0.9)" stroke-width="3"/>
+          <path d="M75,38 Q100,75 125,38" fill="none" stroke="url(#contrastBorder)" stroke-width="2" stroke-linecap="round"/>
+
+          <!-- Placket / button line -->
+          <line x1="100" y1="75" x2="100" y2="180" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+          <!-- Buttons -->
+          <circle cx="100" cy="82" r="2.5" fill="rgba(240,180,41,0.7)"/>
+          <circle cx="100" cy="96" r="2.5" fill="rgba(240,180,41,0.7)"/>
+          <circle cx="100" cy="110" r="2.5" fill="rgba(240,180,41,0.6)"/>
+
+          <!-- Block print motifs (circular) -->
+          <g opacity="0.35">
+            <!-- Large center motif -->
+            <circle cx="100" cy="145" r="18" fill="none" stroke="#F0B429" stroke-width="1.5"/>
+            <circle cx="100" cy="145" r="12" fill="rgba(240,180,41,0.15)"/>
+            <circle cx="100" cy="145" r="6" fill="rgba(240,180,41,0.25)"/>
+            <!-- Petals around -->
+            <path d="M100,127 Q104,136 100,145 Q96,136 100,127Z" fill="#F0B429" opacity="0.5"/>
+            <path d="M118,145 Q109,149 100,145 Q109,141 118,145Z" fill="#F0B429" opacity="0.5"/>
+            <path d="M100,163 Q96,154 100,145 Q104,154 100,163Z" fill="#F0B429" opacity="0.5"/>
+            <path d="M82,145 Q91,141 100,145 Q91,149 82,145Z" fill="#F0B429" opacity="0.5"/>
+          </g>
+          <!-- Smaller side motifs -->
+          <g opacity="0.25">
+            <circle cx="68" cy="165" r="10" fill="none" stroke="#F0B429" stroke-width="1"/>
+            <circle cx="68" cy="165" r="5" fill="rgba(240,180,41,0.2)"/>
+            <circle cx="132" cy="165" r="10" fill="none" stroke="#F0B429" stroke-width="1"/>
+            <circle cx="132" cy="165" r="5" fill="rgba(240,180,41,0.2)"/>
+          </g>
+
+          <!-- Border at hem (contrast) -->
+          <path d="M43,197 Q100,230 157,197" fill="none" stroke="url(#contrastBorder)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M45,204 Q100,236 155,204" fill="none" stroke="rgba(240,180,41,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+
+          <!-- Sleeve border -->
+          <path d="M17,135 Q25,140 30,135" fill="none" stroke="url(#contrastBorder)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M183,135 Q175,140 170,135" fill="none" stroke="url(#contrastBorder)" stroke-width="2" stroke-linecap="round"/>
+
+          <!-- Sheen diagonal -->
+          <path d="M60,22 Q95,60 155,200" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="22" stroke-linecap="round"/>
+
+          <!-- Decorative dots at neckline -->
+          <circle cx="78" cy="40" r="2" fill="rgba(240,180,41,0.6)"/>
+          <circle cx="122" cy="40" r="2" fill="rgba(240,180,41,0.6)"/>
+          <circle cx="100" cy="78" r="1.5" fill="rgba(240,180,41,0.5)"/>
+
+          <!-- Sparkles -->
+          <path d="M155,45 L157,40 L159,45 L157,50Z" fill="rgba(240,180,41,0.5)"/>
+          <path d="M42,220 L44,215 L46,220 L44,225Z" fill="rgba(240,180,41,0.4)"/>
+        </svg>
+      </div>
+
+      <div class="card-label">
+        <div class="label-en en">Chudi / Kurti</div>
+        <div class="label-ta en">சுடிதார் / குர்த்தி</div>
+        <div class="label-en ta" style="display:none;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--dp)">Chudi / Kurti</div>
+        <div class="label-ta ta">சுடிதார் / குர்த்தி</div>
+        <div class="label-sub en">Anarkali · Straight · Palazzo</div>
+        <div class="label-sub ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:9px">அனார்கலி · நேர் · பலாஸோ</div>
+      </div>
+    </div>
+
+    <!-- ── LEHENGA ── -->
+    <div class="garment-card" id="card-lehenga" onclick="selectGarment('lehenga',this)" role="button" tabindex="0" aria-label="Lehenga" onkeydown="if(event.key==='Enter'||event.key===' ')selectGarment('lehenga',this)">
+      <div class="card-check" aria-hidden="true">✓</div>
+      <div class="card-badge en">Bridal Fav ✦</div>
+      <div class="card-badge ta-badge ta">மணப்பெண் பிரிய</div>
+
+      <div class="card-image">
+        <svg viewBox="0 0 200 267" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="bg3" cx="40%" cy="20%" r="70%">
+              <stop offset="0%" stop-color="#8B1A1A"/>
+              <stop offset="50%" stop-color="#6B0F0F"/>
+              <stop offset="100%" stop-color="#3D0A0A"/>
+            </radialGradient>
+            <radialGradient id="silk3" cx="70%" cy="10%" r="60%">
+              <stop offset="0%" stop-color="rgba(200,60,60,0.3)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </radialGradient>
+            <linearGradient id="choli" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#A82020"/>
+              <stop offset="100%" stop-color="#6B0F0F"/>
+            </linearGradient>
+            <linearGradient id="skirt" x1="0" y1="0" x2="0.3" y2="1">
+              <stop offset="0%" stop-color="#8B1A1A"/>
+              <stop offset="40%" stop-color="#6B0F0F"/>
+              <stop offset="100%" stop-color="#3D0A0A"/>
+            </linearGradient>
+            <linearGradient id="skirt-sheen" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.14)"/>
+              <stop offset="30%" stop-color="rgba(255,255,255,0.03)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </linearGradient>
+            <linearGradient id="goldLehenga" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#B8860B"/>
+              <stop offset="35%" stop-color="#FFD700"/>
+              <stop offset="65%" stop-color="#DAA520"/>
+              <stop offset="100%" stop-color="#FFD700"/>
+            </linearGradient>
+            <linearGradient id="dupatta" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="rgba(185,55,157,0.7)"/>
+              <stop offset="100%" stop-color="rgba(113,30,123,0.5)"/>
+            </linearGradient>
+          </defs>
+
+          <rect width="200" height="267" fill="url(#bg3)"/>
+          <rect width="200" height="267" fill="url(#silk3)"/>
+
+          <!-- Fabric weave texture -->
+          <line x1="0" y1="30" x2="200" y2="30" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <line x1="0" y1="60" x2="200" y2="60" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <line x1="0" y1="90" x2="200" y2="90" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <line x1="0" y1="130" x2="200" y2="130" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <line x1="0" y1="170" x2="200" y2="170" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <line x1="0" y1="210" x2="200" y2="210" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+
+          <!-- Dupatta (diagonal scarf hint) -->
+          <path d="M0,0 Q60,20 80,60 Q100,100 70,140 Q50,160 30,200 L0,200Z"
+                fill="url(#dupatta)" opacity="0.6"/>
+          <path d="M5,0 Q65,22 85,63 Q105,103 75,143" fill="none" stroke="rgba(255,215,0,0.3)" stroke-width="1.5"/>
+
+          <!-- LEHENGA - SKIRT (wide flare) -->
+          <path d="M65,115 L8,260 L192,260 L135,115Z"
+                fill="url(#skirt)"/>
+          <path d="M65,115 L8,260 L192,260 L135,115Z"
+                fill="url(#skirt-sheen)"/>
+
+          <!-- Skirt pleats/folds -->
+          <path d="M80,118 L30,260" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+          <path d="M90,116 L48,260" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+          <path d="M100,115 L75,260" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+          <path d="M110,116 L105,260" stroke="rgba(255,255,255,0.05)" stroke-width="1.5"/>
+          <path d="M120,118 L135,260" stroke="rgba(255,255,255,0.05)" stroke-width="1.5"/>
+          <path d="M130,120 L162,260" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+
+          <!-- Skirt embroidery border at hem -->
+          <path d="M9,252 L191,252" stroke="url(#goldLehenga)" stroke-width="4" stroke-linecap="round"/>
+          <path d="M9,257 L191,257" stroke="rgba(255,215,0,0.3)" stroke-width="2" stroke-linecap="round"/>
+          <!-- Border pattern -->
+          <path d="M20,252 Q25,246 30,252 Q35,258 40,252 Q45,246 50,252 Q55,258 60,252 Q65,246 70,252 Q75,258 80,252 Q85,246 90,252 Q95,258 100,252 Q105,246 110,252 Q115,258 120,252 Q125,246 130,252 Q135,258 140,252 Q145,246 150,252 Q155,258 160,252 Q165,246 170,252 Q175,258 180,252" fill="none" stroke="rgba(255,215,0,0.5)" stroke-width="1.2" stroke-linecap="round"/>
+
+          <!-- Skirt middle embroidery band -->
+          <path d="M28,190 Q100,205 172,190" fill="none" stroke="rgba(255,215,0,0.2)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M30,195 Q100,209 170,195" fill="none" stroke="rgba(255,215,0,0.15)" stroke-width="1" stroke-linecap="round"/>
+          <!-- Motifs on skirt band -->
+          <g opacity="0.3">
+            <path d="M65,192 Q70,186 75,192 Q70,198 65,192Z" fill="#FFD700"/>
+            <path d="M95,191 Q100,185 105,191 Q100,197 95,191Z" fill="#FFD700"/>
+            <path d="M125,192 Q130,186 135,192 Q130,198 125,192Z" fill="#FFD700"/>
+          </g>
+
+          <!-- CHOLI (blouse top) -->
+          <path d="M65,50 Q80,42 100,40 Q120,42 135,50 L140,115 L60,115Z"
+                fill="url(#choli)"/>
+
+          <!-- Choli sleeves - short puff -->
+          <path d="M65,50 Q48,52 42,75 Q40,88 48,90 L56,87 Q52,75 58,60Z" fill="url(#choli)"/>
+          <path d="M135,50 Q152,52 158,75 Q160,88 152,90 L144,87 Q148,75 142,60Z" fill="url(#choli)"/>
+
+          <!-- Choli neckline - sweetheart -->
+          <path d="M72,52 Q85,65 100,58 Q115,65 128,52" fill="none" stroke="url(#goldLehenga)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M74,54 Q87,67 100,60 Q113,67 126,54" fill="none" stroke="rgba(255,215,0,0.4)" stroke-width="1" stroke-linecap="round"/>
+
+          <!-- Choli back tie strings -->
+          <path d="M100,58 L100,85" stroke="rgba(255,215,0,0.5)" stroke-width="1" stroke-dasharray="2,2"/>
+
+          <!-- Choli embroidery -->
+          <g opacity="0.5">
+            <circle cx="100" cy="80" r="8" fill="none" stroke="url(#goldLehenga)" stroke-width="1.5"/>
+            <circle cx="100" cy="80" r="4" fill="rgba(255,215,0,0.2)"/>
+            <path d="M100,72 Q102,76 100,80 Q98,76 100,72Z" fill="#FFD700" opacity="0.6"/>
+            <path d="M108,80 Q104,82 100,80 Q104,78 108,80Z" fill="#FFD700" opacity="0.6"/>
+            <path d="M100,88 Q98,84 100,80 Q102,84 100,88Z" fill="#FFD700" opacity="0.6"/>
+            <path d="M92,80 Q96,78 100,80 Q96,82 92,80Z" fill="#FFD700" opacity="0.6"/>
+          </g>
+          <!-- Corner embroidery motifs on choli -->
+          <g opacity="0.35">
+            <path d="M75,100 Q82,93 89,100 Q82,107 75,100Z" fill="#FFD700"/>
+            <path d="M111,100 Q118,93 125,100 Q118,107 111,100Z" fill="#FFD700"/>
+          </g>
+
+          <!-- Choli bottom gold border -->
+          <path d="M60,113 L140,113" stroke="url(#goldLehenga)" stroke-width="3" stroke-linecap="round"/>
+
+          <!-- Sleeve puff border -->
+          <path d="M42,86 Q50,92 58,88" fill="none" stroke="url(#goldLehenga)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M158,86 Q150,92 142,88" fill="none" stroke="url(#goldLehenga)" stroke-width="2" stroke-linecap="round"/>
+
+          <!-- Sheen -->
+          <path d="M75,42 Q105,70 130,200" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="18"/>
+
+          <!-- Sparkles -->
+          <path d="M155,55 L157,50 L159,55 L157,60Z" fill="#FFD700" opacity="0.5"/>
+          <path d="M42,240 L44,235 L46,240 L44,245Z" fill="#FFD700" opacity="0.4"/>
+          <circle cx="172" cy="235" r="2.5" fill="#FFD700" opacity="0.35"/>
+          <circle cx="28" cy="100" r="2" fill="#FFD700" opacity="0.3"/>
+        </svg>
+      </div>
+
+      <div class="card-label">
+        <div class="label-en en">Lehenga</div>
+        <div class="label-ta en">லெஹங்கா</div>
+        <div class="label-en ta" style="display:none;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--dp)">Lehenga</div>
+        <div class="label-ta ta">லெஹங்கா</div>
+        <div class="label-sub en">Bridal · Party wear · Heavy embroidery</div>
+        <div class="label-sub ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:9px">திருமண · கனமான கோலம்</div>
+      </div>
+    </div>
+
+    <!-- ── SATTAI PAVADAI ── -->
+    <div class="garment-card" id="card-sattai" onclick="selectGarment('sattai',this)" role="button" tabindex="0" aria-label="Sattai Pavadai" onkeydown="if(event.key==='Enter'||event.key===' ')selectGarment('sattai',this)">
+      <div class="card-check" aria-hidden="true">✓</div>
+      <div class="card-badge en">Kids Special</div>
+      <div class="card-badge ta-badge ta">குழந்தைகள் சிறப்பு</div>
+
+      <div class="card-image">
+        <svg viewBox="0 0 200 267" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="bg4" cx="45%" cy="25%" r="72%">
+              <stop offset="0%" stop-color="#C05FA0"/>
+              <stop offset="50%" stop-color="#9B2D7A"/>
+              <stop offset="100%" stop-color="#6A1055"/>
+            </radialGradient>
+            <radialGradient id="silk4" cx="65%" cy="15%" r="55%">
+              <stop offset="0%" stop-color="rgba(255,150,200,0.3)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </radialGradient>
+            <linearGradient id="sattaiTop" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#D06BA5"/>
+              <stop offset="100%" stop-color="#9B2D7A"/>
+            </linearGradient>
+            <linearGradient id="pavadaiSkirt" x1="0" y1="0" x2="0.2" y2="1">
+              <stop offset="0%" stop-color="#B8408F"/>
+              <stop offset="50%" stop-color="#8B1F68"/>
+              <stop offset="100%" stop-color="#5A0A40"/>
+            </linearGradient>
+            <linearGradient id="skirt-sheen2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
+              <stop offset="30%" stop-color="rgba(255,255,255,0.04)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </linearGradient>
+            <linearGradient id="orange-gold" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#E07820"/>
+              <stop offset="50%" stop-color="#F5B84C"/>
+              <stop offset="100%" stop-color="#E07820"/>
+            </linearGradient>
+          </defs>
+
+          <rect width="200" height="267" fill="url(#bg4)"/>
+          <rect width="200" height="267" fill="url(#silk4)"/>
+
+          <!-- Horizontal texture -->
+          <line x1="0" y1="50" x2="200" y2="50" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="100" x2="200" y2="100" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="150" x2="200" y2="150" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="200" x2="200" y2="200" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="0" y1="250" x2="200" y2="250" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+          <!-- PAVADAI SKIRT (full flared) -->
+          <path d="M60,115 L10,265 L190,265 L140,115Z"
+                fill="url(#pavadaiSkirt)"/>
+          <path d="M60,115 L10,265 L190,265 L140,115Z"
+                fill="url(#skirt-sheen2)"/>
+
+          <!-- Skirt pleats -->
+          <path d="M72,118 L25,265" stroke="rgba(255,255,255,0.07)" stroke-width="1.5"/>
+          <path d="M84,116 L50,265" stroke="rgba(255,255,255,0.07)" stroke-width="1.5"/>
+          <path d="M96,115 L75,265" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+          <path d="M108,115 L100,265" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+          <path d="M120,116 L128,265" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+          <path d="M128,118 L155,265" stroke="rgba(255,255,255,0.07)" stroke-width="1.5"/>
+
+          <!-- Pavadai hem border - double border -->
+          <path d="M11,256 L189,256" stroke="url(#orange-gold)" stroke-width="5" stroke-linecap="round"/>
+          <path d="M11,262 L189,262" stroke="rgba(240,120,32,0.4)" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Decorative hem pattern (zigzag) -->
+          <path d="M15,256 L22,250 L29,256 L36,250 L43,256 L50,250 L57,256 L64,250 L71,256 L78,250 L85,256 L92,250 L99,256 L106,250 L113,256 L120,250 L127,256 L134,250 L141,256 L148,250 L155,256 L162,250 L169,256 L176,250 L183,256"
+                fill="none" stroke="rgba(240,180,72,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- Skirt middle decorative band -->
+          <path d="M22,195 Q100,212 178,195" fill="none" stroke="rgba(240,180,72,0.25)" stroke-width="2" stroke-linecap="round"/>
+          <!-- Band motifs - small diamonds -->
+          <g opacity="0.4">
+            <path d="M55,197 L58,193 L61,197 L58,201Z" fill="#F5B84C"/>
+            <path d="M85,196 L88,192 L91,196 L88,200Z" fill="#F5B84C"/>
+            <path d="M115,196 L118,192 L121,196 L118,200Z" fill="#F5B84C"/>
+            <path d="M145,197 L148,193 L151,197 L148,201Z" fill="#F5B84C"/>
+          </g>
+
+          <!-- SATTAI (top/blouse) - simple traditional -->
+          <path d="M62,45 Q80,35 100,32 Q120,35 138,45 L143,115 L57,115Z"
+                fill="url(#sattaiTop)"/>
+
+          <!-- Sattai sleeves - half sleeve puff -->
+          <path d="M62,45 Q44,50 38,78 Q35,92 42,95 L50,92 Q47,80 53,62Z" fill="url(#sattaiTop)"/>
+          <path d="M138,45 Q156,50 162,78 Q165,92 158,95 L150,92 Q153,80 147,62Z" fill="url(#sattaiTop)"/>
+
+          <!-- Sattai neckline - round neck -->
+          <ellipse cx="100" cy="47" rx="22" ry="12" fill="#7A1A5A" opacity="0.7"/>
+          <ellipse cx="100" cy="47" rx="22" ry="12" fill="none" stroke="url(#orange-gold)" stroke-width="2"/>
+          <!-- Neckline inner -->
+          <ellipse cx="100" cy="48" rx="18" ry="9" fill="none" stroke="rgba(245,184,76,0.4)" stroke-width="1"/>
+
+          <!-- Neckline embroidery dots -->
+          <g opacity="0.7">
+            <circle cx="82" cy="46" r="1.8" fill="#F5B84C"/>
+            <circle cx="90" cy="41" r="1.8" fill="#F5B84C"/>
+            <circle cx="100" cy="39" r="1.8" fill="#F5B84C"/>
+            <circle cx="110" cy="41" r="1.8" fill="#F5B84C"/>
+            <circle cx="118" cy="46" r="1.8" fill="#F5B84C"/>
+          </g>
+
+          <!-- Sattai body embroidery - simple floral -->
+          <g opacity="0.4">
+            <!-- Center flower -->
+            <circle cx="100" cy="82" r="6" fill="none" stroke="#F5B84C" stroke-width="1.2"/>
+            <circle cx="100" cy="82" r="2.5" fill="rgba(245,184,76,0.3)"/>
+            <path d="M100,76 Q102,79 100,82 Q98,79 100,76Z" fill="#F5B84C"/>
+            <path d="M106,82 Q103,84 100,82 Q103,80 106,82Z" fill="#F5B84C"/>
+            <path d="M100,88 Q98,85 100,82 Q102,85 100,88Z" fill="#F5B84C"/>
+            <path d="M94,82 Q97,80 100,82 Q97,84 94,82Z" fill="#F5B84C"/>
+            <!-- Side small flowers -->
+            <circle cx="76" cy="90" r="4" fill="none" stroke="rgba(245,184,76,0.6)" stroke-width="1"/>
+            <circle cx="76" cy="90" r="1.5" fill="rgba(245,184,76,0.3)"/>
+            <circle cx="124" cy="90" r="4" fill="none" stroke="rgba(245,184,76,0.6)" stroke-width="1"/>
+            <circle cx="124" cy="90" r="1.5" fill="rgba(245,184,76,0.3)"/>
+          </g>
+
+          <!-- Sattai-Pavadai join border -->
+          <path d="M58,112 L142,112" stroke="url(#orange-gold)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M60,116 L140,116" stroke="rgba(240,180,72,0.35)" stroke-width="1.5" stroke-linecap="round"/>
+
+          <!-- Sleeve borders -->
+          <path d="M36,91 Q44,97 52,93" fill="none" stroke="url(#orange-gold)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M164,91 Q156,97 148,93" fill="none" stroke="url(#orange-gold)" stroke-width="2" stroke-linecap="round"/>
+
+          <!-- Sheen -->
+          <path d="M72,34 Q100,65 135,200" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="20"/>
+
+          <!-- Sparkles -->
+          <path d="M152,50 L154,45 L156,50 L154,55Z" fill="rgba(245,184,76,0.6)"/>
+          <path d="M44,240 L46,235 L48,240 L46,245Z" fill="rgba(245,184,76,0.5)"/>
+          <circle cx="168" cy="230" r="2.5" fill="rgba(245,184,76,0.4)"/>
+          <circle cx="33" cy="95" r="2" fill="rgba(245,184,76,0.4)"/>
+
+          <!-- Playful bow/knot at waist -->
+          <path d="M94,115 Q100,108 106,115" fill="none" stroke="rgba(255,184,100,0.6)" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="100" cy="115" r="3" fill="rgba(245,184,76,0.5)"/>
+        </svg>
+      </div>
+
+      <div class="card-label">
+        <div class="label-en en">Sattai Pavadai</div>
+        <div class="label-ta en">சட்டை பாவாடை</div>
+        <div class="label-en ta" style="display:none;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--dp)">Sattai Pavadai</div>
+        <div class="label-ta ta">சட்டை பாவாடை</div>
+        <div class="label-sub en">Traditional · Kids wear · Silk</div>
+        <div class="label-sub ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:9px">பாரம்பரிய · குழந்தை உடை</div>
+      </div>
+    </div>
+
+  </div><!-- /garment-grid -->
+
+  <!-- Selection hint -->
+  <div class="selection-hint" id="selectionHint">
+    <span class="en">Tap a garment to select ↑</span>
+    <span class="ta" style="font-family:'Noto Sans Tamil',sans-serif">ஒரு உடையை தட்டி தேர்வு செய்யுங்கள் ↑</span>
+  </div>
+
+  <!-- ── REFERENCE UPLOAD SECTION ── -->
+  <div class="ref-section" id="refSection">
+    <div class="ref-header" onclick="toggleRef()" role="button" tabindex="0" aria-expanded="false" id="refHeader" onkeydown="if(event.key==='Enter')toggleRef()">
+      <div class="ref-header-left">
+        <div class="ref-icon">📸</div>
+        <div>
+          <div class="ref-title-en en">Have your own reference?</div>
+          <div class="ref-title-en ta" style="display:none;font-size:13px;font-weight:600;color:var(--dp);font-family:'Noto Sans Tamil',sans-serif">உங்களிடம் மாதிரி படம் உள்ளதா?</div>
+          <div class="ref-title-ta en">உங்களிடம் மாதிரி படம் உள்ளதா?</div>
+          <div class="ref-title-ta ta">Have your own reference?</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="ref-optional en">Optional</div>
+        <div class="ref-optional ta" style="font-family:'Noto Sans Tamil',sans-serif;font-size:9px">விரும்பினால்</div>
+        <div class="ref-chevron" id="refChevron">⌄</div>
+      </div>
+    </div>
+
+    <div class="ref-body" id="refBody">
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" accept="image/*" multiple onchange="handleFiles(event)" id="fileInput" aria-label="Upload reference image"/>
+        <span class="upload-icon">☁️</span>
+        <div class="upload-text-en en">Tap to upload a reference image</div>
+        <div class="upload-text-en ta" style="display:none;font-family:'Noto Sans Tamil',sans-serif;font-size:13px;font-weight:500;color:var(--dp)">மாதிரி படத்தை பதிவேற்றவும்</div>
+        <div class="upload-text-ta en">மாதிரி படத்தை பதிவேற்றவும்</div>
+        <div class="upload-text-ta ta">Tap to upload a reference image</div>
+        <div class="upload-hint">JPG, PNG · Max 10MB each</div>
+      </div>
+      <div class="preview-strip" id="previewStrip"></div>
+    </div>
+  </div><!-- /ref-section -->
+
+  <!-- Spacer -->
+  <div style="height:16px"></div>
+
+</main>
+
+<!-- ══════ BOTTOM NAV ══════ -->
+<div class="bottom-nav">
+  <button class="btn-back" onclick="goBack()" aria-label="Go back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#330C4B" stroke-width="2" stroke-linecap="round">
+      <path d="M9 11L5 7l4-4"/>
+    </svg>
+    <span class="en">Back</span>
+    <span class="ta" style="font-family:'Noto Sans Tamil',sans-serif">முதலில்</span>
+  </button>
+  <button class="btn-next" id="nextBtn" disabled onclick="goNext(this,event)" aria-label="Next step">
+    <span class="en">Next</span>
+    <span class="ta" style="font-family:'Noto Sans Tamil',sans-serif">அடுத்து</span>
+    <span class="next-arrow">→</span>
+  </button>
+</div>
+
+<!-- ══════ TOAST ══════ -->
+<div id="toast" role="alert" aria-live="polite">
+  <span id="toastIcon">✨</span>
+  <span id="toastMsg">Selected!</span>
+</div>
+
+<!-- ══════ JAVASCRIPT ══════ -->
+<script>
+'use strict';
+
+let currentLang = 'en';
+let selectedGarment = null;
+let uploadedFiles = [];
+
+/* ── Language ── */
+function setLang(lang) {
+  currentLang = lang;
+  document.body.classList.toggle('lang-ta', lang === 'ta');
+  document.body.classList.toggle('lang-en', lang === 'en');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-ta').classList.toggle('active', lang === 'ta');
+  document.getElementById('btn-en').setAttribute('aria-pressed', lang === 'en');
+  document.getElementById('btn-ta').setAttribute('aria-pressed', lang === 'ta');
+  document.documentElement.lang = lang === 'ta' ? 'ta' : 'en';
+}
+
+/* ── Garment selection ── */
+const garmentLabels = {
+  en: { blouse:'Blouse', chudi:'Chudi / Kurti', lehenga:'Lehenga', sattai:'Sattai Pavadai' },
+  ta: { blouse:'பிளவுஸ்', chudi:'சுடிதார் / குர்த்தி', lehenga:'லெஹங்கா', sattai:'சட்டை பாவாடை' }
+};
+
+function selectGarment(type, card) {
+  /* Deselect all */
+  document.querySelectorAll('.garment-card').forEach(c => c.classList.remove('selected'));
+  /* Select */
+  card.classList.add('selected');
+  selectedGarment = type;
+  /* Enable Next */
+  const nb = document.getElementById('nextBtn');
+  nb.disabled = false;
+  /* Hide hint */
+  document.getElementById('selectionHint').classList.add('hidden');
+  /* Toast */
+  const name = garmentLabels[currentLang][type];
+  showToast('👗', currentLang === 'ta' ? name + ' தேர்ந்தெடுக்கப்பட்டது!' : name + ' selected!');
+  /* Micro-animation */
+  card.style.transform = 'scale(0.97)';
+  setTimeout(() => { card.style.transform = ''; }, 180);
+}
+
+/* ── Reference toggle ── */
+function toggleRef() {
+  const section = document.getElementById('refSection');
+  const body = document.getElementById('refBody');
+  const header = document.getElementById('refHeader');
+  const chevron = document.getElementById('refChevron');
+  const isOpen = section.classList.toggle('open');
+  header.setAttribute('aria-expanded', isOpen);
+  chevron.style.transform = isOpen ? 'rotate(180deg)' : '';
+  if (isOpen) {
+    setTimeout(() => body.scrollIntoView({ behavior:'smooth', block:'nearest' }), 350);
+  }
+}
+
+/* ── File upload ── */
+function handleFiles(e) {
+  const files = Array.from(e.target.files);
+  files.forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+    if (uploadedFiles.length >= 5) { showToast('⚠️', currentLang==='ta'?'அதிகபட்சம் 5 படங்கள்':'Maximum 5 images'); return; }
+    uploadedFiles.push(file);
+    const reader = new FileReader();
+    reader.onload = ev => addPreviewThumb(ev.target.result, uploadedFiles.length - 1);
+    reader.readAsDataURL(file);
+  });
+  e.target.value = '';
+}
+
+function addPreviewThumb(src, idx) {
+  const strip = document.getElementById('previewStrip');
+  /* Remove add-more if present */
+  const existing = strip.querySelector('.add-more-btn');
+  if (existing) strip.removeChild(existing);
+  /* Create thumb */
+  const item = document.createElement('div');
+  item.className = 'preview-item';
+  item.innerHTML = `
+    <img src="${src}" class="preview-thumb" alt="Reference ${idx+1}"/>
+    <button class="preview-remove" onclick="removeThumb(this,${idx})" aria-label="Remove image">✕</button>
+  `;
+  strip.appendChild(item);
+  /* Add "add more" button */
+  if (uploadedFiles.length < 5) {
+    const addBtn = document.createElement('div');
+    addBtn.className = 'add-more-btn';
+    addBtn.innerHTML = `<input type="file" accept="image/*" multiple onchange="handleFiles(event)" aria-label="Add more"/>
+      <span>+</span><span class="add-more-label">${currentLang==='ta'?'சேர்க்க':'Add more'}</span>`;
+    strip.appendChild(addBtn);
+  }
+  showToast('✅', currentLang==='ta'?'படம் சேர்க்கப்பட்டது!':'Image added!');
+}
+
+function removeThumb(btn, idx) {
+  uploadedFiles.splice(idx, 1);
+  const strip = document.getElementById('previewStrip');
+  strip.innerHTML = '';
+  uploadedFiles.forEach((_, i) => {
+    const reader = new FileReader();
+    reader.onload = ev => addPreviewThumb(ev.target.result, i);
+    reader.readAsDataURL(uploadedFiles[i]);
+  });
+  if (uploadedFiles.length === 0) { /* strip is empty, keep zone visible */ }
+}
+
+/* ── Navigation ── */
+function goBack() {
+  document.querySelector('.page-wrapper').style.animation = 'pageOut 0.3s ease forwards';
+  setTimeout(() => { window.location.href = 'index.html'; }, 280);
+}
+
+function goNext(btn, e) {
+  if (!selectedGarment) return;
+  /* Ripple */
+  const rect = btn.getBoundingClientRect();
+  const circle = document.createElement('span');
+  const size = Math.max(rect.width, rect.height);
+  circle.className = 'ripple-circle';
+  circle.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
+  btn.appendChild(circle);
+  circle.addEventListener('animationend', () => circle.remove());
+  /* Toast then navigate */
+  showToast('🪡', currentLang==='ta'?'வடிவமைப்பை தொடங்கலாம்!':'Starting customisation...');
+  setTimeout(() => {
+    /* Route to garment-specific design page (Phase 3) */
+    const routes = { blouse:'blouse-style.html', chudi:'design-chudi.html', lehenga:'design-lehenga.html', sattai:'design-sattai.html' };
+    window.location.href = `${routes[selectedGarment]}?lang=${currentLang}`;
+  }, 700);
+}
+
+/* ── Toast ── */
+let toastTimer = null;
+function showToast(icon, msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastIcon').textContent = icon;
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+/* ── Hover effects on desktop ── */
+document.querySelectorAll('.garment-card').forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    if (!card.classList.contains('selected')) {
+      card.style.transform = 'translateY(-5px) scale(1.01)';
+      card.style.boxShadow = '0 12px 36px rgba(113,30,123,0.18)';
+      card.style.borderColor = 'rgba(185,55,157,0.3)';
+      card.style.transition = 'all 0.3s cubic-bezier(0.34,1.56,0.64,1)';
+    }
+  });
+  card.addEventListener('mouseleave', () => {
+    if (!card.classList.contains('selected')) {
+      card.style.transform = '';
+      card.style.boxShadow = '';
+      card.style.borderColor = '';
+    }
+  });
+});
+
+/* ── Add pageOut keyframe ── */
+const style = document.createElement('style');
+style.textContent = '@keyframes pageOut{to{opacity:0;transform:translateX(-40px)}}';
+document.head.appendChild(style);
+
+/* ── Init ── */
+document.body.classList.add('lang-en');
+
+/* Check URL params for pre-selected garment */
+const params = new URLSearchParams(window.location.search);
+if (params.get('lang') === 'ta') setLang('ta');
+if (params.get('garment')) {
+  const card = document.getElementById('card-' + params.get('garment'));
+  if (card) { setTimeout(() => selectGarment(params.get('garment'), card), 400); }
+}
+</script>
+</body>
+</html>
